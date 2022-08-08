@@ -46,33 +46,79 @@ for (i = 1; i <= 64; i++){ //add 64 divs of alternating color
 
 ///////////////////////////////////////////////////////////////////
 
-class piece {
-    constructor(color, kingStatus){
+class Piece {
+    constructor(color, divLocation){
         this.color = color;
+        this.divLocation = divLocation;
         this.kingStatus = false;
+        
+      
     }
 
-    //getter
+    //getters
 
-//     getPosition {
+    getDivLocation() {
+        return this.divLocation;
+    }
 
-//     }
+    //setters
 
-// }
+    setDivLocation(newLocation) {
+        this.divLocation = newLocation;
+        document.querySelector(`#${newLocation}`)
+    }
+
+    //renderPiece
+    renderPiece(){
+        const divEl = document.getElementById(this.divLocation);
+        const newCircle = document.createElement("div");
+        if (this.color === 'red'){
+            newCircle.setAttribute("class", "red-piece");
+            newCircle.style.background = "red";
+            newCircle.style.width = "50px";
+            newCircle.style.height = "50px";
+            newCircle.style.borderRadius = "50%";
+        }
+        else if (this.color === 'black'){
+            newCircle.setAttribute("class", "black-piece");
+            newCircle.style.background = "black";
+            newCircle.style.width = "50px";
+            newCircle.style.height = "50px";
+            newCircle.style.borderRadius = "50%";
+        }
+        if (this.kingStatus === true){
+            newCircle.setAttribute("class", "king-piece");
+            newCircle.style.background = "gold";
+            newCircle.style.width = "50px";
+            newCircle.style.height = "50px";
+            newCircle.style.borderRadius = "50%";
+        }
+        divEl.append(newCircle);
+    }
+
 
 
 // function returnClickPosition{
 
-
-
 }
 
-boarder.addEventListener('click', function(element) {
-    // const position = element.getBoundingClientRect();
-    const x1 = element.target;
-    console.log(x1);
+
+
+
+boarder.addEventListener('click', getElementFromClick); //return html element clicked on https://stackoverflow.com/questions/42372757/get-element-within-clicked-pixel
     
-});
+
+function getElementFromClick(cursor){
+    htmlEl  = cursor.target;
+    console.log(htmlEl);
+    return htmlEl;
+   
+}
+
+let newPiece = new Piece('red', 5);
+newPiece.renderPiece();
+console.log(newPiece);
+
 
 
 
