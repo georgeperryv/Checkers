@@ -73,17 +73,37 @@ class Piece {
         }
     }
 
-    movePiece(idOfSquare){
-        gameArray[this.divLocation] = null; //removes the black circle from the current div in the array
-        existingCheckers.forEach((element,idx) => { //
-            if (idx === this.divLocation){
-                element.remove();
-                console.log("working")
+    removePossibleMoves(){
+        divList.forEach(element => {
+            if (element.style.background === "yellow"){
+                element.style.background = 'rgb(205, 133, 63)';
             }
-        });
-        this.divLocation = idOfSquare;
-        this.renderPiece();
+        })
+    }
 
+    movePiece(idOfSquare){
+
+        
+        gameArray[this.divLocation] = null; //removes the piece from the current div in the game array and replaces it with null
+        let oldCircle = divList[this.divLocation];
+        oldCircle.firstChild.remove(); //actually removes the piece from the old div
+        
+        this.divLocation = idOfSquare;//change the location of the div for this object to the id of the div passed 
+        gameArray[this.divLocation] = new Piece(this.color, this.divLocation); //in the new position in the game array, add a new Piece object with the same color and new div location
+        this.renderPiece(); //renders a piece in the new div with the new div location 
+        this.removePossibleMoves(); //removes the yellow squares
+
+
+
+
+
+
+        // existingCheckers.forEach((element,idx) => { //
+        //     if (idx === this.divLocation){
+        //         element.remove();
+        //         console.log("working")
+        //     }
+        // });
 
     }
 
@@ -143,7 +163,6 @@ boarder.addEventListener('click', function(cursor){
     htmlEl  = cursor.target;
     let iD = parseInt(htmlEl.id);
     let divClass = htmlEl.className;
-    console.log(divClass);
    
     if(playerTurn === 1 && gameStatus === null && divClass === 'square'){
         console.log("please choose the piece you would like to move")
@@ -161,9 +180,7 @@ boarder.addEventListener('click', function(cursor){
     }
     if (playerTurn === 1.5 && gameStatus === null && htmlEl.style.background === 'yellow'){
         let desiredSquare = divList[iD]; 
-        console.log("Im here")
         let idOfSquare = parseInt(desiredSquare.id); //gives the id number of the square we want to move to 
-        console.log("desired piece" + desiredPiece)
         desiredPiece.movePiece(idOfSquare);
         playerTurn = 2;
     }
@@ -178,7 +195,7 @@ resetButton.addEventListener('click', init);
 
 function getElementFromClick(cursor){
     htmlEl  = cursor.target;
-    console.log(htmlEl);
+    // console.log(htmlEl);
     return htmlEl;
    
 }
@@ -220,7 +237,7 @@ function init(){
     
         }
     }
-console.log(gameArray);
+
 
    
 }
