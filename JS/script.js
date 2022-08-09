@@ -73,12 +73,26 @@ class Piece {
         }
     }
 
+    movePiece(idOfSquare){
+        gameArray[this.divLocation] = null; //removes the black circle from the current div in the array
+        existingCheckers.forEach((element,idx) => { //
+            if (idx === this.divLocation){
+                element.remove();
+                console.log("working")
+            }
+        });
+        this.divLocation = idOfSquare;
+        this.renderPiece();
+
+
+    }
+
     //renderPiece
     renderPiece(){
         const divEl = document.getElementById(this.divLocation);
         const newCircle = document.createElement("div");
         if (this.color === 'red'){
-            newCircle.setAttribute("class", "piece");
+            newCircle.setAttribute("class", "circle");
             newCircle.setAttribute("id", this.divLocation);
             newCircle.style.background = "red";
             newCircle.style.width = "56px";
@@ -87,7 +101,7 @@ class Piece {
         
         }
         else if (this.color === 'black'){
-            newCircle.setAttribute("class", "piece");
+            newCircle.setAttribute("class", "circle");
             newCircle.setAttribute("id", this.divLocation);
             newCircle.style.background = "black";
             newCircle.style.width = "56px";
@@ -95,7 +109,7 @@ class Piece {
             newCircle.style.borderRadius = "50%";
         }
         if (this.kingStatus === true){
-            newCircle.setAttribute("class", "piece");
+            newCircle.setAttribute("class", "circle");
             newCircle.style.background = "gold";
             newCircle.style.width = "56px";
             newCircle.style.height = "56px";
@@ -109,6 +123,7 @@ class Piece {
 //Global variables
 
 let divList = document.querySelectorAll(".square");
+let existingCheckers = document.querySelectorAll(".circle");
 let resetButton = document.querySelector("#reset");
 let gameArray = [];
 let playerTurn = 1;
@@ -121,16 +136,40 @@ let gameStatus = null; //no winner
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //event listeners
 
+let desiredPiece = 0;
+
 
 boarder.addEventListener('click', function(cursor){
     htmlEl  = cursor.target;
-   if (playerTurn === 1 && gameStatus === null && htmlEl.style.background === 'black'){
-        let pieceID = parseInt(htmlEl.id);
-        let desiredPiece = gameArray[pieceID];
-        desiredPiece.showPossibleMoves();
-   }
+    let iD = parseInt(htmlEl.id);
+    let divClass = htmlEl.className;
+    console.log(divClass);
+   
+    if(playerTurn === 1 && gameStatus === null && divClass === 'square'){
+        console.log("please choose the piece you would like to move")
+    }
+    else if (playerTurn === 1 && gameStatus === null && divClass === 'circle'){
+        if(htmlEl.style.background === 'black'){
+            desiredPiece = gameArray[iD];
+            desiredPiece.showPossibleMoves();
+            playerTurn = 1.5;
+         }
+         else{
+            console.log("please choose the piece you would like to move");
+         }
+       
+    }
+    if (playerTurn === 1.5 && gameStatus === null && htmlEl.style.background === 'yellow'){
+        let desiredSquare = divList[iD]; 
+        console.log("Im here")
+        let idOfSquare = parseInt(desiredSquare.id); //gives the id number of the square we want to move to 
+        console.log("desired piece" + desiredPiece)
+        desiredPiece.movePiece(idOfSquare);
+        playerTurn = 2;
+    }
 
-}); //return html element clicked on https://stackoverflow.com/questions/42372757/get-element-within-clicked-pixel
+    }); 
+//return html element clicked on https://stackoverflow.com/questions/42372757/get-element-within-clicked-pixel
 resetButton.addEventListener('click', init);
 
 
@@ -148,7 +187,6 @@ function getElementFromClick(cursor){
 
 function init(){
     gameArray = [];
-    let existingCheckers = document.querySelectorAll(".piece");
     existingCheckers.forEach(element => {
          element.remove();
      });
