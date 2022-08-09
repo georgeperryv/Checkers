@@ -62,15 +62,37 @@ class Piece {
     //     }
     // }
 
+    // hasPossibleMoves(){
+
+    // }
+
     showPossibleMoves(){
+        let hasMoves = false;
         if (this.color === 'black'){
             if (gameArray[this.divLocation-7] === null && divList[this.divLocation-7].style.background === 'rgb(205, 133, 63)'){
                document.getElementById(this.divLocation-7).style.background = "yellow";
+               hasMoves = true;
             }
             if (gameArray[this.divLocation-9] === null && divList[this.divLocation-9].style.background === 'rgb(205, 133, 63)'){
                 document.getElementById(this.divLocation-9).style.background = "yellow";
+                hasMoves = true;
              }
         }
+        else if (this.color === 'red'){
+            if (gameArray[this.divLocation+7] === null && divList[this.divLocation+7].style.background === 'rgb(205, 133, 63)'){
+               document.getElementById(this.divLocation+7).style.background = "yellow";
+               hasMoves = true;
+            }
+            if (gameArray[this.divLocation+9] === null && divList[this.divLocation+9].style.background === 'rgb(205, 133, 63)'){
+                document.getElementById(this.divLocation+9).style.background = "yellow";
+                console.log("this is happening")
+                hasMoves = true;
+             }
+        }
+        else{
+            hasMoves = false;
+        }
+        return hasMoves;
     }
 
     removePossibleMoves(){
@@ -93,17 +115,6 @@ class Piece {
         this.renderPiece(); //renders a piece in the new div with the new div location 
         this.removePossibleMoves(); //removes the yellow squares
 
-
-
-
-
-
-        // existingCheckers.forEach((element,idx) => { //
-        //     if (idx === this.divLocation){
-        //         element.remove();
-        //         console.log("working")
-        //     }
-        // });
 
     }
 
@@ -160,21 +171,23 @@ let desiredPiece = 0;
 
 
 boarder.addEventListener('click', function(cursor){
-    htmlEl  = cursor.target;
-    let iD = parseInt(htmlEl.id);
-    let divClass = htmlEl.className;
+    htmlEl  = cursor.target; //entire element clicked on 
+    let iD = parseInt(htmlEl.id); //id of the element clicked on 
+    let divClass = htmlEl.className; //class of the element clicked on 
    
-    if(playerTurn === 1 && gameStatus === null && divClass === 'square'){
-        console.log("please choose the piece you would like to move")
+    if(playerTurn === (1 || 2) && gameStatus === null && divClass === 'square'){
+        console.log("1please choose the piece you would like to move")
     }
-    else if (playerTurn === 1 && gameStatus === null && divClass === 'circle'){
+    if (playerTurn === 1 && gameStatus === null && divClass === 'circle'){
         if(htmlEl.style.background === 'black'){
             desiredPiece = gameArray[iD];
-            desiredPiece.showPossibleMoves();
-            playerTurn = 1.5;
+            if (desiredPiece.showPossibleMoves() === true){
+                desiredPiece.showPossibleMoves();
+                playerTurn = 1.5;
+            } 
          }
          else{
-            console.log("please choose the piece you would like to move");
+            console.log(`please chose a black piece`);
          }
        
     }
@@ -184,8 +197,26 @@ boarder.addEventListener('click', function(cursor){
         desiredPiece.movePiece(idOfSquare);
         playerTurn = 2;
     }
+    if (playerTurn === 2 && gameStatus === null && divClass === 'circle'){
+        if(htmlEl.style.background === 'red'){
+            desiredPiece = gameArray[iD];
+            if (desiredPiece.showPossibleMoves() === true){
+                desiredPiece.showPossibleMoves();
+                playerTurn = 2.5;
+            } 
+         }
+         else{
+            console.log(`please chose a red piece`);
+         }
+    }
+    if (playerTurn === 2.5 && gameStatus === null && htmlEl.style.background === 'yellow'){
+        let desiredSquare = divList[iD]; 
+        let idOfSquare = parseInt(desiredSquare.id); //gives the id number of the square we want to move to 
+        desiredPiece.movePiece(idOfSquare);
+        playerTurn = 1;
+    }
 
-    }); 
+}); 
 //return html element clicked on https://stackoverflow.com/questions/42372757/get-element-within-clicked-pixel
 resetButton.addEventListener('click', init);
 
