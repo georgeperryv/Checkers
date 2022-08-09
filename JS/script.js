@@ -1,3 +1,4 @@
+
 ///////////////////////////////////////////////////////////////////
 //Board set-up 
 
@@ -14,35 +15,18 @@ for (let i = 0; i < 64; i++){ //add 64 divs of alternating color
     div.style.alignItems = "center";
 
     if (colorCount % 9 === 0){
-        colorCount++;
-         
+        colorCount++;  
     }
-
     if (colorCount % 2 === 1){
         div.style.background = '#FFEBCD';
         colorCount++;
-    
     }
     else{
-        div.style.background = '#CD853F';
+        div.style.background = '#CD853F'; //darker
         colorCount++;
- 
     }
-   
-
     boarder.appendChild(div);
 }
-
-
-// const element = document.getElementById('47');
-// const position = element.getBoundingClientRect();
-// const x1 = position.left;
-// const x2 = position.right;
-// const y1 = position.top;
-// const y2 = position.bottom;
-
-// console.log(x1, x2, y1, y2);
-
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -67,7 +51,26 @@ class Piece {
 
     setDivLocation(newLocation) {
         this.divLocation = newLocation;
-        document.querySelector(`#${newLocation}`)
+        document.querySelector(`#${newLocation}`) // not sure what this is doing
+    }
+
+    //Check if it is a valid move for each piece 
+
+    // checkIfMovePossible(){
+    //     if (this.color === 'black' && getElementFromClick().style.background === '#CD853F'){
+
+    //     }
+    // }
+
+    showPossibleMoves(){
+        if (this.color === 'black'){
+            if (gameArray[this.divLocation-7] === null && divList[this.divLocation-7].style.background === 'rgb(205, 133, 63)'){
+               document.getElementById(this.divLocation-7).style.background = "yellow";
+            }
+            if (gameArray[this.divLocation-9] === null && divList[this.divLocation-9].style.background === 'rgb(205, 133, 63)'){
+                document.getElementById(this.divLocation-9).style.background = "yellow";
+             }
+        }
     }
 
     //renderPiece
@@ -76,6 +79,7 @@ class Piece {
         const newCircle = document.createElement("div");
         if (this.color === 'red'){
             newCircle.setAttribute("class", "piece");
+            newCircle.setAttribute("id", this.divLocation);
             newCircle.style.background = "red";
             newCircle.style.width = "56px";
             newCircle.style.height = "56px";
@@ -84,6 +88,7 @@ class Piece {
         }
         else if (this.color === 'black'){
             newCircle.setAttribute("class", "piece");
+            newCircle.setAttribute("id", this.divLocation);
             newCircle.style.background = "black";
             newCircle.style.width = "56px";
             newCircle.style.height = "56px";
@@ -102,20 +107,35 @@ class Piece {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Global variables
-let thePiece = new Piece('red', 28);
-thePiece.renderPiece();
 
 let divList = document.querySelectorAll(".square");
-let existingCheckers = document.querySelectorAll(".piece");
+let resetButton = document.querySelector("#reset");
 let gameArray = [];
+let playerTurn = 1;
+let player1NumCaptured = 0;
+let player2NumCaptured = 0;
+let gameStatus = null; //no winner
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//event listeners
 
 
+boarder.addEventListener('click', function(cursor){
+    htmlEl  = cursor.target;
+   if (playerTurn === 1 && gameStatus === null && htmlEl.style.background === 'black'){
+        let pieceID = parseInt(htmlEl.id);
+        let desiredPiece = gameArray[pieceID];
+        desiredPiece.showPossibleMoves();
+   }
 
-boarder.addEventListener('click', getElementFromClick); //return html element clicked on https://stackoverflow.com/questions/42372757/get-element-within-clicked-pixel
-    
+}); //return html element clicked on https://stackoverflow.com/questions/42372757/get-element-within-clicked-pixel
+resetButton.addEventListener('click', init);
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//functions
 
 function getElementFromClick(cursor){
     htmlEl  = cursor.target;
@@ -128,6 +148,7 @@ function getElementFromClick(cursor){
 
 function init(){
     gameArray = [];
+    let existingCheckers = document.querySelectorAll(".piece");
     existingCheckers.forEach(element => {
          element.remove();
      });
@@ -144,13 +165,16 @@ function init(){
             }
 
         }
+        if (j >= 24 && j <= 39){
+            gameArray.push(null);
+        }
 
         if (j > 39){
 
             if (divList[j].style.background === 'rgb(255, 235, 205)'){
                 gameArray.push(null);
             }
-            else if (divList[j].style.background === 'rgb(205, 133, 63)'){
+            else if (divList[j].style.background === 'rgb(205, 133, 63)'){//darker
                 let circle = new Piece ('black', j);
                 circle.renderPiece();
                 gameArray.push(circle);
@@ -158,13 +182,18 @@ function init(){
     
         }
     }
+console.log(gameArray);
+
+   
 }
 
 
-init();
-console.log(gameArray);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//rest of game logic 
 
-// console.log(gameArray);
+
+
+
 
 
 

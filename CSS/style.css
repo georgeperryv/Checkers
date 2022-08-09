@@ -1,10 +1,5 @@
 
 
-#circle{
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-}
 
 
 .container{
@@ -36,6 +31,12 @@
    border: 2px solid rgb(7, 7, 7);
 }
 
-.red-piece{
+/* .red-piece{
     border: blue;
+} */
+
+.button{
+    height: 50px;
+    display: flex;
+    justify-content: center;
 }
