@@ -66,51 +66,78 @@ class Piece {
     // hasPossibleMoves(){
 
     // }
+    showDoubleJumpPosition(){//will show the positions available for a double jump
+        this.haveMoves = false;
+        if (this.color === 'black'){
+            if (gameArray[this.divLocation-7] !== null && gameArray[this.divLocation-7].color !== 'black' && gameArray[this.divLocation-14] === null && divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)'){ //jump over
+                document.getElementById(this.divLocation-14).style.background = 'rgb(255, 255, 0)';
+                this.hasMoves = true;
+             }
+            if (gameArray[this.divLocation-9] !== null && gameArray[this.divLocation-9].color !== 'black' && gameArray[this.divLocation-18] === null && divList[this.divLocation-18].style.background === 'rgb(205, 133, 63)'){
+                document.getElementById(this.divLocation-18).style.background = 'rgb(255, 255, 0)';
+                this. hasMoves = true;
+             }
+        }
+        else if (this.color === 'red'){
+            //in case it starts putting yellows on light colored squares add an and with this "&& divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)'""
+            if (gameArray[this.divLocation+7] !== null && gameArray[this.divLocation+7].color !== 'red' && gameArray[this.divLocation+14] === null && divList[this.divLocation+14].style.background === 'rgb(205, 133, 63)'){
+                document.getElementById(this.divLocation+14).style.background = 'rgb(255, 255, 0)';
+                this.hasMoves = true;
+             }
+             if (gameArray[this.divLocation+9] !== null && gameArray[this.divLocation+9].color !== 'red' && gameArray[this.divLocation+18] === null && divList[this.divLocation+18].style.background === 'rgb(205, 133, 63)'){
+                document.getElementById(this.divLocation+18).style.background = 'rgb(255, 255, 0)';
+                this.hasMoves = true;
+             }
+        }
+        return this.hasMoves;
+    }
+
 
     showPossibleMoves(){ //both changes certain divs to yellow that would be possible moves as well as returns true or false if there are possible moves
+        this.hasMoves = false;
         if (this.color === 'black'){
             if (gameArray[this.divLocation-7] === null && divList[this.divLocation-7].style.background === 'rgb(205, 133, 63)'){
-               document.getElementById(this.divLocation-7).style.background = "yellow";
+               document.getElementById(this.divLocation-7).style.background = 'rgb(255, 255, 0)';
                console.log("first");
                this.hasMoves = true;
             }
     
             if (gameArray[this.divLocation-7] !== null && gameArray[this.divLocation-7].color !== 'black' && gameArray[this.divLocation-14] === null && divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)'){ //jump over
 
-                document.getElementById(this.divLocation-14).style.background = "yellow";
+                document.getElementById(this.divLocation-14).style.background = 'rgb(255, 255, 0)';
                 console.log("second");
                 this.hasMoves = true;
              }
             if (gameArray[this.divLocation-9] === null && divList[this.divLocation-9].style.background === 'rgb(205, 133, 63)'){
-                document.getElementById(this.divLocation-9).style.background = "yellow";
+                document.getElementById(this.divLocation-9).style.background = 'rgb(255, 255, 0)';
                 console.log("third");
                 this.hasMoves = true;
              }
             if (gameArray[this.divLocation-9] !== null && gameArray[this.divLocation-9].color !== 'black' && gameArray[this.divLocation-18] === null && divList[this.divLocation-18].style.background === 'rgb(205, 133, 63)'){
-                document.getElementById(this.divLocation-18).style.background = "yellow";
+                document.getElementById(this.divLocation-18).style.background = 'rgb(255, 255, 0)';
                 console.log("fourth");
                 this. hasMoves = true;
              }
         }
         else if (this.color === 'red'){
             if (gameArray[this.divLocation+7] === null && divList[this.divLocation+7].style.background === 'rgb(205, 133, 63)'){
-               document.getElementById(this.divLocation+7).style.background = "yellow";
+               document.getElementById(this.divLocation+7).style.background = 'rgb(255, 255, 0)';
                console.log("fifth");
                this.hasMoves = true;
             }
             //in case it starts putting yellows on light colored squares add an and with this "&& divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)'""
             if (gameArray[this.divLocation+7] !== null && gameArray[this.divLocation+7].color !== 'red' && gameArray[this.divLocation+14] === null && divList[this.divLocation+14].style.background === 'rgb(205, 133, 63)'){
-                document.getElementById(this.divLocation+14).style.background = "yellow";
+                document.getElementById(this.divLocation+14).style.background = 'rgb(255, 255, 0)';
                 console.log("sixth");
                 this.hasMoves = true;
              }
             if (gameArray[this.divLocation+9] === null && divList[this.divLocation+9].style.background === 'rgb(205, 133, 63)'){
-                document.getElementById(this.divLocation+9).style.background = "yellow";
+                document.getElementById(this.divLocation+9).style.background = 'rgb(255, 255, 0)';
                 console.log("seventh");
                 this.hasMoves = true;
              }
              if (gameArray[this.divLocation+9] !== null && gameArray[this.divLocation+9].color !== 'red' && gameArray[this.divLocation+18] === null && divList[this.divLocation+18].style.background === 'rgb(205, 133, 63)'){
-                document.getElementById(this.divLocation+18).style.background = "yellow";
+                document.getElementById(this.divLocation+18).style.background = 'rgb(255, 255, 0)';
                 console.log("eighth" + gameArray[this.divlocation+9]);
                 console.log("eighth");
                 this.hasMoves = true;
@@ -121,7 +148,7 @@ class Piece {
 
     removePossibleMoves(){
         divList.forEach(element => {
-            if (element.style.background === "yellow"){
+            if (element.style.background === 'rgb(255, 255, 0)'){
                 element.style.background = 'rgb(205, 133, 63)';
             }
         })
@@ -240,39 +267,70 @@ boarder.addEventListener('click', function(cursor){
          }
        
     }
-    if (playerTurn === 1.5 && gameStatus === null && htmlEl.style.background === 'yellow'){
+    if (playerTurn === 1.5 && gameStatus === null && htmlEl.style.background === 'rgb(255, 255, 0)'){
         let desiredSquare = divList[iD]; 
         let idOfSquare = parseInt(desiredSquare.id); //gives the id number of the square we want to move to 
         let numberMoved = desiredPiece.movePiece(idOfSquare); //actually moving the piece 
-        doubleJumpCount++;
-        // console.log("1" + numberMoved);
-        // console.log("2" + desiredPiece.color);
-        // console.log("3" + desiredPiece.showPossibleMoves());
-         console.log("4" + htmlEl.style.background);
-        if (numberMoved >= 14 && desiredPiece.color === 'black' && desiredPiece.showPossibleMoves() === true){
-            console.log("you shouldnt be here!")
-            if (gameArray[idOfSquare-7] !== null && gameArray[idOfSquare-7].color === 'red' && gameArray[idOfSquare-14] === null && divList[idOfSquare-14].style.background === 'rgb(205, 133, 63)'){
-                document.getElementById(idOfSquare-14).style.background = "yellow";
-                doubleJumpCount++;
-                console.log("would you like to double jump?1")
-            }
-            if (gameArray[idOfSquare-9] !== null && gameArray[idOfSquare-9].color === 'red' && gameArray[idOfSquare-18] === null && divList[idOfSquare-18].style.background === 'rgb(205, 133, 63)'){
-                document.getElementById(idOfSquare-18).style.background = "yellow";
-                doubleJumpCount++;
-                console.log("would you like to double jump?2")
-            }
+        if (numberMoved >= 14){
+            playerTurn = 1.6;
         }
         else {
-            console.log(numberMoved + "This is number moved black inside else"); 
-            doubleJumpCount = 0;
             playerTurn = 2;
+            console.log("Tennis");
         }
     }
+    if (playerTurn === 1.6 && desiredPiece.color === 'black' && desiredPiece.showDoubleJumpPosition() === true){
+        desiredPiece.showDoubleJumpPosition();
+        let desiredSquare = divList[iD]; 
+        let idOfSquare = parseInt(desiredSquare.id); //gives the id number of the square we want to move to 
+        desiredPiece.movePiece(idOfSquare);
+        // playerTurn = 2;
+        console.log("candy");
+    }
+    if (playerTurn === 1.6 && desiredPiece.color === 'black' && desiredPiece.showDoubleJumpPosition() === false){
+        playerTurn = 2;
+        console.log("cheese");
+    }
 
-    else if (playerTurn === 1.5 && gameStatus === null && (htmlEl.style.background === 'red' || divClass === 'square')){
+
+
+
+
+
+
+    // if (playerTurn === 1.6 && desiredPiece.color === 'black' && desiredPiece.showPossibleMoves() === true){
+    //     let desiredSquare = divList[iD]; 
+    //     let idOfSquare = parseInt(desiredSquare.id);
+    //     // console.log("NUMBER 1" + gameArray[idOfSquare-7]);
+    //     // console.log("NUMBER 1" + gameArray[idOfSquare-7].color);
+    //     // console.log("NUMBER 1" + gameArray[idOfSquare-14]);
+    //     // console.log(divList[idOfSquare-14].style.background);
+    //     console.log
+    //     if (gameArray[idOfSquare-7] !== null && gameArray[idOfSquare-7].color === 'red' && gameArray[idOfSquare-14] === null && divList[idOfSquare-14].style.background === 'rgb(205, 133, 63)'){
+    //         document.getElementById(idOfSquare-14).style.background = "yellow";
+    //         doubleJumpCount++;
+    //         console.log("would you like to double jump?1")
+    //         desiredPiece.movePiece(idOfSquare);
+    //     }
+    //     if (gameArray[idOfSquare-9] !== null && gameArray[idOfSquare-9].color === 'red' && gameArray[idOfSquare-18] === null && divList[idOfSquare-18].style.background === 'rgb(205, 133, 63)'){
+    //         document.getElementById(idOfSquare-18).style.background = "yellow";
+    //         doubleJumpCount++;
+    //         console.log("would you like to double jump?2")
+    //         desiredPiece.movePiece(idOfSquare);
+    //     }
+    //     // if (doubleJumpCount>0){ //if there is a possible double jump move
+    //     //     desiredPiece.movePiece(idOfSquare);
+    //     // }
+    //     else if (doubleJumpCount === 0){
+    //         playerTurn = 2;
+    //     }
+    
+    // }
+
+    if (playerTurn === 1.5 && gameStatus === null && (htmlEl.style.background === 'red' || divClass === 'square')){
         console.log("Please chose a yellow square");
     }
-    else if (playerTurn === 1.5 && gameStatus === null && divClass === 'circle' && doubleJumpCount === 0){//if they are choosing another black it should switch to that piece 
+    if (playerTurn === 1.5 && gameStatus === null && divClass === 'circle'){//if they are choosing another black it should switch to that piece 
         if(htmlEl.style.background === 'black'){
             console.log("yo bozo im here")
             desiredPiece = gameArray[iD];
@@ -301,7 +359,7 @@ boarder.addEventListener('click', function(cursor){
             console.log(`please chose a red piece`);
          }
     }
-    if (playerTurn === 2.5 && gameStatus === null && htmlEl.style.background === 'yellow'){
+    if (playerTurn === 2.5 && gameStatus === null && htmlEl.style.background === 'rgb(255, 255, 0)'){
         console.log("why hello there")
         let desiredSquare = divList[iD]; 
         let idOfSquare = parseInt(desiredSquare.id); //gives the id number of the square we want to move to 
