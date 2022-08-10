@@ -69,11 +69,6 @@ class Piece {
     showDoubleJumpPosition(){//will show the positions available for a double jump
         this.hasMoves = false;
         if (this.color === 'black'){
-            console.log("FIRST" + gameArray[this.divLocation-7]);
-            console.log("SECOND" + ((this.divLocation-7) > 0));
-            console.log("THIRD" + gameArray[this.divLocation-7].color);
-            console.log("FOURTH" + gameArray[this.divLocation-14]);
-            console.log("FIFTH" + divList[this.divLocation-14].style.background);
 
             if (gameArray[this.divLocation-7] !== null && ((this.divLocation-7) > 0) && gameArray[this.divLocation-7].color !== 'black' && gameArray[this.divLocation-14] === null && divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)'){ //jump over
                 document.getElementById(this.divLocation-14).style.background = 'rgb(255, 255, 0)';//yellow
@@ -292,17 +287,21 @@ boarder.addEventListener('click', function(cursor){
     }
     if (playerTurn === 1.6){
         let desiredSquare = divList[iD]; 
-        console.log("look here");
         let idOfSquare = parseInt(desiredSquare.id);
         desiredPiece.showDoubleJumpPosition();
         playerTurn = 1.7;
-        console.log("look here2");
     }
     if (playerTurn === 1.7 & gameStatus === null && htmlEl.style.background === 'rgb(255, 255, 0)'){
         let desiredSquare = divList[iD]; 
         let idOfSquare = parseInt(desiredSquare.id); //gives the id number of the square we want to move to 
         let numberMoved = desiredPiece.movePiece(idOfSquare); //actually moving the piece 
         desiredPiece.removePossibleMoves();
+        if (desiredPiece.showDoubleJumpPosition()===false){
+            playerTurn = 2;
+        }
+        else{
+            playerTurn = 1.6;
+        }
     }
       
     
