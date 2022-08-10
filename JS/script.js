@@ -73,21 +73,18 @@ class Piece {
                document.getElementById(this.divLocation-7).style.background = "yellow";
                hasMoves = true;
             }
-            // console.log(gameArray);
-            // console.log(gameArray[this.divLocation-7].style.background + "this oneeeee");
-            if (gameArray[this.divLocation-7] !== null && gameArray[this.divLocation-7].color !== 'black' && gameArray[this.divLocation-14] === null && divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)'){
-                console.log(gameArray[this.divLocation-7].color +  "this color");
+    
+            if (gameArray[this.divLocation-7] !== null && gameArray[this.divLocation-7].color !== 'black' && gameArray[this.divLocation-14] === null){
+
                 document.getElementById(this.divLocation-14).style.background = "yellow";
-                console.log("im here 2");
                 hasMoves = true;
              }
             if (gameArray[this.divLocation-9] === null && divList[this.divLocation-9].style.background === 'rgb(205, 133, 63)'){
                 document.getElementById(this.divLocation-9).style.background = "yellow";
                 hasMoves = true;
              }
-            if (gameArray[this.divLocation-9] !== null && gameArray[this.divLocation-9].color !== 'black' && gameArray[this.divLocation-18] === null && divList[this.divLocation-18].style.background === 'rgb(205, 133, 63)'){
+            if (gameArray[this.divLocation-9] !== null && gameArray[this.divLocation-9].color !== 'black' && gameArray[this.divLocation-18] === null){
                 document.getElementById(this.divLocation-18).style.background = "yellow";
-                console.log("im here 3");
                 hasMoves = true;
              }
         }
@@ -96,8 +93,8 @@ class Piece {
                document.getElementById(this.divLocation+7).style.background = "yellow";
                hasMoves = true;
             }
-            //&& divList[this.divLocation+7].style.background === 'rgb(205, 133, 63)'
-            if (gameArray[this.divLocation+7] !== null && gameArray[this.divLocation+7].color !== 'red' && gameArray[this.divLocation+14] === null && divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)'){
+            //in case it starts putting yellows on light colored squares add an and with this "&& divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)'""
+            if (gameArray[this.divLocation+7] !== null && gameArray[this.divLocation+7].color !== 'red' && gameArray[this.divLocation+14] === null){
                 document.getElementById(this.divLocation+14).style.background = "yellow";
                 hasMoves = true;
              }
@@ -105,7 +102,7 @@ class Piece {
                 document.getElementById(this.divLocation+9).style.background = "yellow";
                 hasMoves = true;
              }
-             if (gameArray[this.divLocation+9] !== null && gameArray[this.divLocation+9].color !== 'red' && gameArray[this.divLocation+18] === null && divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)'){
+             if (gameArray[this.divLocation+9] !== null && gameArray[this.divLocation+9].color !== 'red' && gameArray[this.divLocation+18] === null){
                 document.getElementById(this.divLocation+18).style.background = "yellow";
                 hasMoves = true;
              }
@@ -125,15 +122,25 @@ class Piece {
     }
 
     movePiece(idOfSquare){
-
+      
         let difference = Math.abs(idOfSquare - this.divLocation);
-        if (difference >= 14 && this.color === 'red'){
-            player2NumCaptured++;
-            console.log("player 2 captured: " + player2NumCaptured);
-        }
-        else if (difference >= 14 && this.color === 'black'){
+        console.log(difference)
+        if (difference >= 14 && this.color === 'black'){
+            let pieceJumpedOver = divList[this.divLocation-(difference/2)];
+            pieceJumpedOver.firstChild.remove();
+            let oldSpotOfPieceJumping = this.divLocation-(difference/2);
+            gameArray[oldSpotOfPieceJumping] = null;
+            console.log(gameArray);
             player1NumCaptured++;
             console.log("player 1 captured: " + player1NumCaptured);
+        }
+        else if (difference >= 14 && this.color === 'red'){
+            let pieceJumpedOver = divList[this.divLocation+(difference/2)];
+            pieceJumpedOver.firstChild.remove();
+            let oldSpotOfPieceJumping = this.divLocation+(difference/2);
+            gameArray[oldSpotOfPieceJumping] = null;
+            player2NumCaptured++;
+            console.log("player 2 captured: " + player2NumCaptured);
         }
         
         gameArray[this.divLocation] = null; //removes the piece from the current div in the game array and replaces it with null
@@ -144,6 +151,8 @@ class Piece {
         gameArray[this.divLocation] = new Piece(this.color, this.divLocation); //in the new position in the game array, add a new Piece object with the same color and new div location
         this.renderPiece(); //renders a piece in the new div with the new div location 
         this.removePossibleMoves(); //removes the yellow squares
+        
+        return difference;
 
 
     }
@@ -224,8 +233,17 @@ boarder.addEventListener('click', function(cursor){
     if (playerTurn === 1.5 && gameStatus === null && htmlEl.style.background === 'yellow'){
         let desiredSquare = divList[iD]; 
         let idOfSquare = parseInt(desiredSquare.id); //gives the id number of the square we want to move to 
-        desiredPiece.movePiece(idOfSquare);
+        let numberMoved = desiredPiece.movePiece(idOfSquare);
+        console.log(numberMoved + "This is number moved black");
+        if (numberMoved >= 14 && desiredPiece.color === 'black' && desiredPiece.showPossibleMoves() === true){
+            playerTurn = 1;
+        
+        }
+        else {
+        desiredPiece.movePiece(idOfSquare);  
         playerTurn = 2;
+        
+        }
     }
     if (playerTurn === 2 && gameStatus === null && divClass === 'circle'){
         if(htmlEl.style.background === 'red'){
@@ -234,17 +252,28 @@ boarder.addEventListener('click', function(cursor){
                 desiredPiece.showPossibleMoves();
                 playerTurn = 2.5;
             } 
-         }
+        }
          else{
             console.log(`please chose a red piece`);
          }
     }
     if (playerTurn === 2.5 && gameStatus === null && htmlEl.style.background === 'yellow'){
+        console.log("why hello there")
         let desiredSquare = divList[iD]; 
         let idOfSquare = parseInt(desiredSquare.id); //gives the id number of the square we want to move to 
-        desiredPiece.movePiece(idOfSquare);
-        playerTurn = 1;
+        let numberMoved = desiredPiece.movePiece(idOfSquare);
+        console.log(numberMoved + "This is number moved red");
+        console.log(desiredPiece.color + "Should be red");
+        console.log(desiredPiece.showPossibleMoves + "should be true if there can be a double move");
+        if (numberMoved >= 14 && desiredPiece.color === 'red' && desiredPiece.showPossibleMoves() === true){
+            playerTurn = 2;
+        }
+        else{
+            desiredPiece.movePiece(idOfSquare);
+            playerTurn = 1; 
+        }
     }
+
 
 }); 
 //return html element clicked on https://stackoverflow.com/questions/42372757/get-element-within-clicked-pixel
