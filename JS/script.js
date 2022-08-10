@@ -67,15 +67,24 @@ class Piece {
 
     // }
     showDoubleJumpPosition(){//will show the positions available for a double jump
-        this.haveMoves = false;
+        this.hasMoves = false;
         if (this.color === 'black'){
-            if (gameArray[this.divLocation-7] !== null && gameArray[this.divLocation-7].color !== 'black' && gameArray[this.divLocation-14] === null && divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)'){ //jump over
-                document.getElementById(this.divLocation-14).style.background = 'rgb(255, 255, 0)';
+            console.log("FIRST" + gameArray[this.divLocation-7]);
+            console.log("SECOND" + ((this.divLocation-7) > 0));
+            console.log("THIRD" + gameArray[this.divLocation-7].color);
+            console.log("FOURTH" + gameArray[this.divLocation-14]);
+            console.log("FIFTH" + divList[this.divLocation-14].style.background);
+
+            if (gameArray[this.divLocation-7] !== null && ((this.divLocation-7) > 0) && gameArray[this.divLocation-7].color !== 'black' && gameArray[this.divLocation-14] === null && divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)'){ //jump over
+                document.getElementById(this.divLocation-14).style.background = 'rgb(255, 255, 0)';//yellow
+                console.log("this should be yellow:" + document.getElementById(this.divLocation-14).style.background);
+                console.log("im here1");
                 this.hasMoves = true;
              }
-            if (gameArray[this.divLocation-9] !== null && gameArray[this.divLocation-9].color !== 'black' && gameArray[this.divLocation-18] === null && divList[this.divLocation-18].style.background === 'rgb(205, 133, 63)'){
+            if (gameArray[this.divLocation-9] !== null && ((this.divLocation-9) > 0) && gameArray[this.divLocation-9].color !== 'black' && gameArray[this.divLocation-18] === null && divList[this.divLocation-18].style.background === 'rgb(205, 133, 63)'){
                 document.getElementById(this.divLocation-18).style.background = 'rgb(255, 255, 0)';
-                this. hasMoves = true;
+                this.hasMoves = true;
+                console.log("im here2");
              }
         }
         else if (this.color === 'red'){
@@ -271,6 +280,8 @@ boarder.addEventListener('click', function(cursor){
         let desiredSquare = divList[iD]; 
         let idOfSquare = parseInt(desiredSquare.id); //gives the id number of the square we want to move to 
         let numberMoved = desiredPiece.movePiece(idOfSquare); //actually moving the piece 
+        desiredPiece.removePossibleMoves();
+        console.log('num of moves:' + numberMoved);
         if (numberMoved >= 14){
             playerTurn = 1.6;
         }
@@ -279,18 +290,54 @@ boarder.addEventListener('click', function(cursor){
             console.log("Tennis");
         }
     }
-    if (playerTurn === 1.6 && desiredPiece.color === 'black' && desiredPiece.showDoubleJumpPosition() === true){
+    if (playerTurn === 1.6){
+        let desiredSquare = divList[iD]; 
+        console.log("look here");
+        let idOfSquare = parseInt(desiredSquare.id);
         desiredPiece.showDoubleJumpPosition();
+        playerTurn = 1.7;
+        console.log("look here2");
+    }
+    if (playerTurn === 1.7 & gameStatus === null && htmlEl.style.background === 'rgb(255, 255, 0)'){
         let desiredSquare = divList[iD]; 
         let idOfSquare = parseInt(desiredSquare.id); //gives the id number of the square we want to move to 
-        desiredPiece.movePiece(idOfSquare);
-        // playerTurn = 2;
-        console.log("candy");
+        let numberMoved = desiredPiece.movePiece(idOfSquare); //actually moving the piece 
+        desiredPiece.removePossibleMoves();
     }
-    if (playerTurn === 1.6 && desiredPiece.color === 'black' && desiredPiece.showDoubleJumpPosition() === false){
-        playerTurn = 2;
-        console.log("cheese");
-    }
+      
+    
+        
+
+
+    // } && desiredPiece.color === 'black' && desiredPiece.showDoubleJumpPosition() === true){
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        //     // console.log( desiredPiece.showDoubleJumpPosition() + "this is the boolean");
+    //     let desiredSquare = divList[iD]; 
+    //     let idOfSquare = parseInt(desiredSquare.id); //gives the id number of the square we want to move to
+    //     let numberMoved = desiredPiece.movePiece(idOfSquare); //actually moving the piece 
+    //     desiredPiece.removePossibleMoves();
+    //     if (numberMoved >= 14){
+    //         playerTurn = 1.6;
+    //     }
+    //     else {
+    //         playerTurn = 2;
+    //     }
+
+    //     // console.log(desiredPiece.showDoubleJumpPosition());
+    // }
+    // if (playerTurn === 1.6 && desiredPiece.color === 'black' && desiredPiece.showDoubleJumpPosition() === false){
+    //     playerTurn = 2;
+    //     console.log("cheese");
+    // }
 
 
 
@@ -364,9 +411,6 @@ boarder.addEventListener('click', function(cursor){
         let desiredSquare = divList[iD]; 
         let idOfSquare = parseInt(desiredSquare.id); //gives the id number of the square we want to move to 
         let numberMoved = desiredPiece.movePiece(idOfSquare);
-        console.log(numberMoved + "This is number moved red");
-        console.log(desiredPiece.color + "Should be red");
-        console.log(desiredPiece.showPossibleMoves + "should be true if there can be a double move");
         if (numberMoved >= 14 && desiredPiece.color === 'red' && desiredPiece.showPossibleMoves() === true){
             playerTurn = 2;
         }
