@@ -224,9 +224,12 @@ boarder.addEventListener('click', function(cursor){
                 desiredPiece.showPossibleMoves();
                 playerTurn = 1.5;
             } 
+            else {
+                console.log("Pleae select a piece which has possible moves available")
+            }
          }
          else{
-            console.log(`please chose a black piece`);
+            console.log(`please chose a black piece111111`);
          }
        
     }
@@ -242,8 +245,23 @@ boarder.addEventListener('click', function(cursor){
         else {
         desiredPiece.movePiece(idOfSquare);  
         playerTurn = 2;
-        
         }
+    }
+    else if (playerTurn === 1.5 && gameStatus === null && (htmlEl.style.background === 'red' || divClass === 'square')){
+        console.log("Please chose a black piece22222");
+    }
+    else if (playerTurn === 1.5 && gameStatus === null && divClass === 'circle'){
+        if(htmlEl.style.background === 'black'){
+            desiredPiece = gameArray[iD];
+            if (desiredPiece.showPossibleMoves() === true){
+                desiredPiece.removePossibleMoves();
+                desiredPiece.showPossibleMoves();
+            } 
+         }
+         else if (playerTurn === 1.5 && gameStatus === null && divClass === 'circle' && htmlEl.style.backgroun === 'red'){
+            console.log(`please chose a black piece33333`);
+         }
+
     }
     if (playerTurn === 2 && gameStatus === null && divClass === 'circle'){
         if(htmlEl.style.background === 'red'){
