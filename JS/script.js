@@ -71,39 +71,48 @@ class Piece {
         if (this.color === 'black'){
             if (gameArray[this.divLocation-7] === null && divList[this.divLocation-7].style.background === 'rgb(205, 133, 63)'){
                document.getElementById(this.divLocation-7).style.background = "yellow";
+               console.log("first");
                hasMoves = true;
             }
     
-            if (gameArray[this.divLocation-7] !== null && gameArray[this.divLocation-7].color !== 'black' && gameArray[this.divLocation-14] === null){
+            if (gameArray[this.divLocation-7] !== null && gameArray[this.divLocation-7].color !== 'black' && gameArray[this.divLocation-14] === null && divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)'){ //jump over
 
                 document.getElementById(this.divLocation-14).style.background = "yellow";
+                console.log("second");
                 hasMoves = true;
              }
             if (gameArray[this.divLocation-9] === null && divList[this.divLocation-9].style.background === 'rgb(205, 133, 63)'){
                 document.getElementById(this.divLocation-9).style.background = "yellow";
+                console.log("third");
                 hasMoves = true;
              }
-            if (gameArray[this.divLocation-9] !== null && gameArray[this.divLocation-9].color !== 'black' && gameArray[this.divLocation-18] === null){
+            if (gameArray[this.divLocation-9] !== null && gameArray[this.divLocation-9].color !== 'black' && gameArray[this.divLocation-18] === null && divList[this.divLocation-18].style.background === 'rgb(205, 133, 63)'){
                 document.getElementById(this.divLocation-18).style.background = "yellow";
+                console.log("fourth");
                 hasMoves = true;
              }
         }
         else if (this.color === 'red'){
             if (gameArray[this.divLocation+7] === null && divList[this.divLocation+7].style.background === 'rgb(205, 133, 63)'){
                document.getElementById(this.divLocation+7).style.background = "yellow";
+               console.log("fifth");
                hasMoves = true;
             }
             //in case it starts putting yellows on light colored squares add an and with this "&& divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)'""
-            if (gameArray[this.divLocation+7] !== null && gameArray[this.divLocation+7].color !== 'red' && gameArray[this.divLocation+14] === null){
+            if (gameArray[this.divLocation+7] !== null && gameArray[this.divLocation+7].color !== 'red' && gameArray[this.divLocation+14] === null && divList[this.divLocation+14].style.background === 'rgb(205, 133, 63)'){
                 document.getElementById(this.divLocation+14).style.background = "yellow";
+                console.log("sixth");
                 hasMoves = true;
              }
             if (gameArray[this.divLocation+9] === null && divList[this.divLocation+9].style.background === 'rgb(205, 133, 63)'){
                 document.getElementById(this.divLocation+9).style.background = "yellow";
+                console.log("seventh");
                 hasMoves = true;
              }
-             if (gameArray[this.divLocation+9] !== null && gameArray[this.divLocation+9].color !== 'red' && gameArray[this.divLocation+18] === null){
+             if (gameArray[this.divLocation+9] !== null && gameArray[this.divLocation+9].color !== 'red' && gameArray[this.divLocation+18] === null && divList[this.divLocation+18].style.background === 'rgb(205, 133, 63)'){
                 document.getElementById(this.divLocation+18).style.background = "yellow";
+                console.log("eighth" + gameArray[this.divlocation+9]);
+                console.log("eighth");
                 hasMoves = true;
              }
         }
@@ -248,7 +257,7 @@ boarder.addEventListener('click', function(cursor){
         }
     }
     else if (playerTurn === 1.5 && gameStatus === null && (htmlEl.style.background === 'red' || divClass === 'square')){
-        console.log("Please chose a black piece22222");
+        console.log("Please chose a yellow square");
     }
     else if (playerTurn === 1.5 && gameStatus === null && divClass === 'circle'){
         if(htmlEl.style.background === 'black'){
@@ -257,8 +266,11 @@ boarder.addEventListener('click', function(cursor){
                 desiredPiece.removePossibleMoves();
                 desiredPiece.showPossibleMoves();
             } 
+            else {
+                console.log("Pleae select a piece which has possible moves available")
+            }
          }
-         else if (playerTurn === 1.5 && gameStatus === null && divClass === 'circle' && htmlEl.style.backgroun === 'red'){
+         else if (htmlEl.style.backgroun === 'red'){
             console.log(`please chose a black piece33333`);
          }
 
