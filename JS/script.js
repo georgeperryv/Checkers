@@ -332,15 +332,15 @@ class Piece {
                 if ((this.divLocation+9) < 64){
 
                     if (gameArray[this.divLocation+9] === null && divList[this.divLocation+9].style.background === 'rgb(205, 133, 63)'){
-                            document.getElementById(this.divLocation+9).style.background = 'rgb(255, 255, 0)';
-                            this.hasMoves = true;
-                            countBlackPiece++;
+                        document.getElementById(this.divLocation+9).style.background = 'rgb(255, 255, 0)';
+                        this.hasMoves = true;
+                        countBlackPiece++;
                         
                     }
                     if (gameArray[this.divLocation+9] !== null && gameArray[this.divLocation+9].color !== 'black' && gameArray[this.divLocation+18] === null && divList[this.divLocation+18].style.background === 'rgb(205, 133, 63)'){
-                            document.getElementById(this.divLocation+18).style.background = 'rgb(255, 255, 0)';
-                            this.hasMoves = true;
-                            countBlackPiece++;
+                        document.getElementById(this.divLocation+18).style.background = 'rgb(255, 255, 0)';
+                        this.hasMoves = true;
+                        countBlackPiece++;
                         
                     }
                 }
@@ -354,13 +354,82 @@ class Piece {
                 }
                 
             }
-            else {
-                console.log("Red King...still working on it")
+            /////THIS IS WHERE THE RED KING GOES
+            if (this.color=== 'red') {
+                if((this.divLocation-7) >= 0){
+                    if (gameArray[this.divLocation-7] === null && divList[this.divLocation-7].style.background === 'rgb(205, 133, 63)'){
+                        document.getElementById(this.divLocation-7).style.background = 'rgb(255, 255, 0)';
+                        console.log("first");
+                        this.hasMoves = true;
+                        countRedPiece++;
+                    }
+            
+                    if (gameArray[this.divLocation-7] !== null && gameArray[this.divLocation-7].color !== 'red' && gameArray[this.divLocation-14] === null && ((divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)') || (divList[this.divLocation-14].style.background === 'rgb(255, 255, 0)'))){
+                        document.getElementById(this.divLocation-14).style.background = 'rgb(255, 255, 0)';
+                        console.log("second");
+                        this.hasMoves = true;
+                        countRedPiece++;
+                    }
+                    
+                }
+                if((this.divLocation-9) >= 0){
+
+                    if (gameArray[this.divLocation-9] === null && divList[this.divLocation-9].style.background === 'rgb(205, 133, 63)'){
+                        document.getElementById(this.divLocation-9).style.background = 'rgb(255, 255, 0)';
+                        this.hasMoves = true;
+                        countRedPiece++;
+                      
+                    }
+                    if (gameArray[this.divLocation-9] !== null && gameArray[this.divLocation-9].color !== 'red' && gameArray[this.divLocation-18] === null && divList[this.divLocation-18].style.background === 'rgb(205, 133, 63)'){
+                        document.getElementById(this.divLocation-18).style.background = 'rgb(255, 255, 0)';
+                        this.hasMoves = true;
+                        countRedPiece++;
+                        
+                    }
+                }
+                if ((this.divLocation+7) < 64){
+
+                    if (gameArray[this.divLocation+7] === null && divList[this.divLocation+7].style.background === 'rgb(205, 133, 63)'){
+                        document.getElementById(this.divLocation+7).style.background = 'rgb(255, 255, 0)';
+                        this.hasMoves = true;
+                        countRedPiece++;
+                    }
+                    if (gameArray[this.divLocation+7] !== null && gameArray[this.divLocation+7].color !== 'red' && gameArray[this.divLocation+14] === null && divList[this.divLocation+14].style.background === 'rgb(205, 133, 63)'){
+                        document.getElementById(this.divLocation+14).style.background = 'rgb(255, 255, 0)';
+                        this.hasMoves = true;
+                        countRedPiece++;
+                       
+                    }
+                }
+                if ((this.divLocation+9) < 64){
+
+                    if (gameArray[this.divLocation+9] === null && divList[this.divLocation+9].style.background === 'rgb(205, 133, 63)'){
+                        document.getElementById(this.divLocation+9).style.background = 'rgb(255, 255, 0)';
+                        this.hasMoves = true;
+                        countRedPiece++;
+                        
+                    }
+                    if (gameArray[this.divLocation+9] !== null && gameArray[this.divLocation+9].color !== 'red' && gameArray[this.divLocation+18] === null && divList[this.divLocation+18].style.background === 'rgb(205, 133, 63)'){
+                        document.getElementById(this.divLocation+18).style.background = 'rgb(255, 255, 0)';
+                        this.hasMoves = true;
+                        countRedPiece++;
+                        
+                    }
+                }
+                if (countRedPiece > 0){
+                    this.hasMoves = true;
+                    return true;
+                }
+                else{
+                    this.hasMoves=false;
+                    return false;
+                }
+
             }
 
         }
 
-     }    
+    }    
            
 
     removePossibleMoves(){
@@ -416,7 +485,23 @@ class Piece {
                 console.log("player 2 captured: " + player2NumCaptured);
             }
             if(this.kingStatus === true){
-
+                if ((idOfSquare-this.divLocation) > 0){
+                    let pieceJumpedOver = divList[this.divLocation+(difference/2)];
+                    pieceJumpedOver.firstChild.remove();
+                    let oldSpotOfPieceJumping = this.divLocation+(difference/2);
+                    gameArray[oldSpotOfPieceJumping] = null;
+                    player2NumCaptured++;
+                    console.log("player 2 captured: " + player2NumCaptured);
+                }
+                if ((idOfSquare-this.divLocation) < 0){
+                    let pieceJumpedOver = divList[this.divLocation-(difference/2)];
+                    pieceJumpedOver.firstChild.remove();
+                    let oldSpotOfPieceJumping = this.divLocation-(difference/2);
+                    gameArray[oldSpotOfPieceJumping] = null;
+                    player2NumCaptured++;
+                    console.log("player 2 captured: " + player2NumCaptured);
+                }
+////NEED TO DO THIS
             }
         }
         
@@ -431,10 +516,12 @@ class Piece {
         this.removePossibleMoves(); //removes the yellow squares
 
         if (this.color === 'black' && this.divLocation <= 7){
+            this.kingStatus = true;
             gameArray[this.divLocation].setKingStatus(true);
             console.log("we have changed the king status to true - black");
         }
         if (this.color === 'red' && this.divLocation >= 56){
+            this.kingStatus = true;
             gameArray[this.divLocation].setKingStatus(true);
             console.log("we have changed the king status to true - red ");
         }
@@ -457,21 +544,19 @@ class Piece {
             newCircle.style.borderRadius = "50%";
         
         }
-        else if (this.color === 'black'){
+        if (this.color === 'black'){
             newCircle.setAttribute("class", "circle");
             newCircle.setAttribute("id", this.divLocation);
             newCircle.style.background = "black";
             newCircle.style.width = "56px";
             newCircle.style.height = "56px";
             newCircle.style.borderRadius = "50%";
+            
         }
-        // if (this.kingStatus === true){
-        //     newCircle.setAttribute("class", "circle");
-        //     newCircle.style.background = "gold";
-        //     newCircle.style.width = "56px";
-        //     newCircle.style.height = "56px";
-        //     newCircle.style.borderRadius = "50%";
-        // }
+        if (this.kingStatus === true){
+        
+            newCircle.style.border = '3px solid gold';
+         }
         divEl.append(newCircle);
     }
 }
