@@ -280,26 +280,88 @@ class Piece {
             }
         }
         if (this.kingStatus ===true){
-            // this.hasMoves = true;
-            console.log("KINGGG STATUSSSSSS inside show Possible Moves");
-            return true;
+            if (this.color === 'black'){
+                if((this.divLocation-7) >= 0){
+                    if (gameArray[this.divLocation-7] === null && divList[this.divLocation-7].style.background === 'rgb(205, 133, 63)'){
+                        document.getElementById(this.divLocation-7).style.background = 'rgb(255, 255, 0)';
+                        console.log("first");
+                        this.hasMoves = true;
+                        countBlackPiece++;
+                    }
+            
+                    if (gameArray[this.divLocation-7] !== null && gameArray[this.divLocation-7].color !== 'black' && gameArray[this.divLocation-14] === null && ((divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)') || (divList[this.divLocation-14].style.background === 'rgb(255, 255, 0)'))){
+                        document.getElementById(this.divLocation-14).style.background = 'rgb(255, 255, 0)';
+                        console.log("second");
+                        this.hasMoves = true;
+                        // return true;
+                        countBlackPiece++;
+                    }
+                    
+                }
+                if((this.divLocation-9) >= 0){
 
+                    if (gameArray[this.divLocation-9] === null && divList[this.divLocation-9].style.background === 'rgb(205, 133, 63)'){
+                        document.getElementById(this.divLocation-9).style.background = 'rgb(255, 255, 0)';
+                        console.log("third");
+                        this.hasMoves = true;
+                        countBlackPiece++;
+                        // return true;
+                    }
+                    if (gameArray[this.divLocation-9] !== null && gameArray[this.divLocation-9].color !== 'black' && gameArray[this.divLocation-18] === null && divList[this.divLocation-18].style.background === 'rgb(205, 133, 63)'){
+                        document.getElementById(this.divLocation-18).style.background = 'rgb(255, 255, 0)';
+                        console.log("fourth");
+                        this.hasMoves = true;
+                        countBlackPiece++;
+                        // return true;
+                    }
+                }
+                if ((this.divLocation+7) < 64){
 
+                    if (gameArray[this.divLocation+7] === null && divList[this.divLocation+7].style.background === 'rgb(205, 133, 63)'){
+                        document.getElementById(this.divLocation+7).style.background = 'rgb(255, 255, 0)';
+                        this.hasMoves = true;
+                        countBlackPiece++;
+                    }
+                    if (gameArray[this.divLocation+7] !== null && gameArray[this.divLocation+7].color !== 'black' && gameArray[this.divLocation+14] === null && divList[this.divLocation+14].style.background === 'rgb(205, 133, 63)'){
+                        document.getElementById(this.divLocation+14).style.background = 'rgb(255, 255, 0)';
+                        this.hasMoves = true;
+                        countBlackPiece++;
+                       
+                    }
+                }
+                if ((this.divLocation+9) < 64){
 
+                    if (gameArray[this.divLocation+9] === null && divList[this.divLocation+9].style.background === 'rgb(205, 133, 63)'){
+                            document.getElementById(this.divLocation+9).style.background = 'rgb(255, 255, 0)';
+                            this.hasMoves = true;
+                            countBlackPiece++;
+                        
+                    }
+                    if (gameArray[this.divLocation+9] !== null && gameArray[this.divLocation+9].color !== 'black' && gameArray[this.divLocation+18] === null && divList[this.divLocation+18].style.background === 'rgb(205, 133, 63)'){
+                            document.getElementById(this.divLocation+18).style.background = 'rgb(255, 255, 0)';
+                            this.hasMoves = true;
+                            countBlackPiece++;
+                        
+                    }
+                }
+                if (countBlackPiece > 0){
+                    this.hasMoves = true;
+                    return true;
+                }
+                else{
+                    this.hasMoves=false;
+                    return false;
+                }
+                
+            }
+            else {
+                console.log("Red King...still working on it")
+            }
 
+        }
 
-
-
-
-
-
-
-
-
-
-        }    
+     }    
            
-     }
 
     removePossibleMoves(){
         divList.forEach(element => {
@@ -310,33 +372,61 @@ class Piece {
     }
 
     movePiece(idOfSquare){
+       
       
         let difference = Math.abs(idOfSquare - this.divLocation);
         console.log("difference, " + difference)
         if (difference >= 14 && this.color === 'black'){
-            let pieceJumpedOver = divList[this.divLocation-(difference/2)];
-            pieceJumpedOver.firstChild.remove();
-            let oldSpotOfPieceJumping = this.divLocation-(difference/2);
-            gameArray[oldSpotOfPieceJumping] = null;
-            console.log(gameArray);
-            player1NumCaptured++;
-            console.log("player 1 captured: " + player1NumCaptured);
+            if(this.kingStatus === false){
+                let pieceJumpedOver = divList[this.divLocation-(difference/2)];
+                pieceJumpedOver.firstChild.remove();
+                let oldSpotOfPieceJumping = this.divLocation-(difference/2);
+                gameArray[oldSpotOfPieceJumping] = null;
+                console.log(gameArray);
+                player1NumCaptured++;
+                console.log("player 1 captured: " + player1NumCaptured);
+            }
+            if(this.kingStatus === true){   
+                if ((idOfSquare-this.divLocation) > 0){
+                    let pieceJumpedOver = divList[this.divLocation+(difference/2)];
+                    pieceJumpedOver.firstChild.remove();
+                    let oldSpotOfPieceJumping = this.divLocation+(difference/2);
+                    gameArray[oldSpotOfPieceJumping] = null;
+                    player1NumCaptured++;
+                    console.log("player 1 captured: " + player1NumCaptured);
+                }
+                if ((idOfSquare-this.divLocation) < 0){
+                    let pieceJumpedOver = divList[this.divLocation-(difference/2)];
+                    pieceJumpedOver.firstChild.remove();
+                    let oldSpotOfPieceJumping = this.divLocation-(difference/2);
+                    gameArray[oldSpotOfPieceJumping] = null;
+                    player1NumCaptured++;
+                    console.log("player 1 captured: " + player1NumCaptured);
+                }
+
+            }
         }
-        else if (difference >= 14 && this.color === 'red'){
-            let pieceJumpedOver = divList[this.divLocation+(difference/2)];
-            pieceJumpedOver.firstChild.remove();
-            let oldSpotOfPieceJumping = this.divLocation+(difference/2);
-            gameArray[oldSpotOfPieceJumping] = null;
-            player2NumCaptured++;
-            console.log("player 2 captured: " + player2NumCaptured);
+        if (difference >= 14 && this.color === 'red'){
+            if(this.kingStatus === false){
+                let pieceJumpedOver = divList[this.divLocation+(difference/2)];
+                pieceJumpedOver.firstChild.remove();
+                let oldSpotOfPieceJumping = this.divLocation+(difference/2);
+                gameArray[oldSpotOfPieceJumping] = null;
+                player2NumCaptured++;
+                console.log("player 2 captured: " + player2NumCaptured);
+            }
+            if(this.kingStatus === true){
+
+            }
         }
         
         gameArray[this.divLocation] = null; //removes the piece from the current div in the game array and replaces it with null
         let oldCircle = divList[this.divLocation];
         oldCircle.firstChild.remove(); //actually removes the piece from the old div
-        
+        console.log("This is the this.color color: " + this.color);
         this.divLocation = idOfSquare;//change the location of the div for this object to the id of the div passed 
         gameArray[this.divLocation] = new Piece(this.color, this.divLocation); //in the new position in the game array, add a new Piece object with the same color and new div location
+        gameArray[this.divLocation].setKingStatus(this.kingStatus);
         this.renderPiece(); //renders a piece in the new div with the new div location 
         this.removePossibleMoves(); //removes the yellow squares
 
@@ -375,13 +465,13 @@ class Piece {
             newCircle.style.height = "56px";
             newCircle.style.borderRadius = "50%";
         }
-        if (this.kingStatus === true){
-            newCircle.setAttribute("class", "circle");
-            newCircle.style.background = "gold";
-            newCircle.style.width = "56px";
-            newCircle.style.height = "56px";
-            newCircle.style.borderRadius = "50%";
-        }
+        // if (this.kingStatus === true){
+        //     newCircle.setAttribute("class", "circle");
+        //     newCircle.style.background = "gold";
+        //     newCircle.style.width = "56px";
+        //     newCircle.style.height = "56px";
+        //     newCircle.style.borderRadius = "50%";
+        // }
         divEl.append(newCircle);
     }
 }
