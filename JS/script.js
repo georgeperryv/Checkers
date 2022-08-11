@@ -49,7 +49,7 @@ class Piece {
     }
 
     getHasMoves(){
-        return this.hasMoves;
+        return this.showDoubleJumpPosition();
     }
 
     //setters
@@ -71,17 +71,21 @@ class Piece {
 
     // }
     showDoubleJumpPosition(){//will show the positions available for a double jump
+       this.hasMoves=false;
+       console.log("showDoubleJumpPosition")
+    //    debugger;
         if (this.color === 'black'){
 
 
             console.log("FIRST" + gameArray[this.divLocation-7]);
-            // console.log("SECOND" + ((this.divLocation-7) > 0));
-            // let z = this.divLocation - 7;
+            console.log("SECOND" + ((this.divLocation-7) > 0));
+            
             // console.log("this is z" + z);
             // console.log(gameArray);
-            // console.log("THIRD" + (gameArray[z].color));
-            // console.log("FOURTH" + (gameArray[this.divLocation-14]));
-            // console.log("FIFTH" + divList[this.divLocation-14].style.background);
+            console.log("THIRD" + (gameArray[this.divLocation-7]?.color));
+
+            console.log("FOURTH" + (gameArray[this.divLocation-14] === null));
+            console.log("FIFTH" + divList[this.divLocation-14]?.style?.background);
 
 
             // console.log("SIXTH" + gameArray[this.divLocation-9]);
@@ -91,7 +95,9 @@ class Piece {
             // console.log("TENTH" + divList[this.divLocation-18].style.background);
 
            if((this.divLocation-7) > 0){
-                if (gameArray[this.divLocation-7] !== null && gameArray[this.divLocation-7].color !== 'black' && gameArray[this.divLocation-14] === null && divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)'){ //jump over
+
+                if (gameArray[this.divLocation-7] !== null && gameArray[this.divLocation-7].color !== 'black' && gameArray[this.divLocation-14] === null && ((divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)') || (divList[this.divLocation-14].style.background === 'rgb(255, 255, 0)'))) { //jump over
+                    console.log("setting hasMove true case 1")
                     document.getElementById(this.divLocation-14).style.background = 'rgb(255, 255, 0)';//yellow
                     console.log("this should be yellow:" + document.getElementById(this.divLocation-14).style.background);
                     console.log("im here1");
@@ -100,16 +106,19 @@ class Piece {
                 }
            }
            if((this.divLocation-9) > 0){
-                if (gameArray[this.divLocation-9] !== null && ((this.divLocation-9) !== undefined) && gameArray[this.divLocation-9].color !== 'black' && gameArray[this.divLocation-18] === null && divList[this.divLocation-18].style.background === 'rgb(205, 133, 63)'){
+                if (gameArray[this.divLocation-9] !== null && ((this.divLocation-9) !== undefined) && gameArray[this.divLocation-9].color !== 'black' && gameArray[this.divLocation-18] === null && ((divList[this.divLocation-18].style.background === 'rgb(205, 133, 63)') || (divList[this.divLocation-18].style.background === 'rgb(255, 255, 0)'))){
+                    console.log("setting hasMove true case 2")
+
                     document.getElementById(this.divLocation-18).style.background = 'rgb(255, 255, 0)';
                     this.hasMoves = true;
                     return true;
                 }
             }
-        }
-        else{
+            console.log("setting hasMove true case 3")
+            this.hasMoves=false;
             return false;
         }
+
         
         if (this.color === 'red'){
             if ((this.divLocation-7) !== undefined){
@@ -127,6 +136,9 @@ class Piece {
                     return true;
                 }
             }
+            console.log("setting hasMove false case 3 red")
+            this.hasMoves=false;
+            return false;
         }
     
         else{
@@ -200,7 +212,7 @@ class Piece {
     movePiece(idOfSquare){
       
         let difference = Math.abs(idOfSquare - this.divLocation);
-        console.log(difference)
+        console.log("difference, " + difference)
         if (difference >= 14 && this.color === 'black'){
             let pieceJumpedOver = divList[this.divLocation-(difference/2)];
             pieceJumpedOver.firstChild.remove();
@@ -291,6 +303,16 @@ boarder.addEventListener('click', function(cursor){
     htmlEl  = cursor.target; //entire element clicked on 
     let iD = parseInt(htmlEl.id); //id of the element clicked on 
     let divClass = htmlEl.className; //class of the element clicked on 
+
+    console.log("playerTurn ", playerTurn)
+
+    // if( playerTurn === 1.7 && htmlEl.style.background === 'rgb(255, 255, 0)'){
+    //     console.log("in playerTurn = 1.7 click on yello...")
+
+    //     let desiredSquare = divList[iD]; 
+    //     let idOfSquare = parseInt(desiredSquare.id); //gives the id number of the square we want to move to 
+    //     desiredPiece.movePiece(idOfSquare);  
+    // }
    
     if(playerTurn === (1 || 2) && gameStatus === null && divClass === 'square'){
         console.log("1please choose the piece you would like to move")
@@ -315,9 +337,10 @@ boarder.addEventListener('click', function(cursor){
         let desiredSquare = divList[iD]; 
         let idOfSquare = parseInt(desiredSquare.id); //gives the id number of the square we want to move to 
         let numberMoved = desiredPiece.movePiece(idOfSquare); //actually moving the piece 
-        // desiredPiece.removePossibleMoves();
+        //desiredPiece.removePossibleMoves();
         console.log('num of moves:' + numberMoved);
         if (numberMoved >= 14){
+            console.log("when im in here")
             playerTurn = 1.6;
         }
         else {
@@ -326,37 +349,54 @@ boarder.addEventListener('click', function(cursor){
         }
     }
     if (playerTurn === 1.6){
+        console.log("player turn 1.6....");
 
         console.log("im making it here 1");
         console.log(gameArray);
         let George = gameArray[desiredPiece.divLocation];
         console.log(George);
         console.log(George.showDoubleJumpPosition());
-        if (desiredPiece.getHasMoves() === true){
-            
+        console.log("get has move: ", desiredPiece.getHasMoves());
+        if (desiredPiece.showDoubleJumpPosition() === true){
+            console.log("setting player turn to 1.7...");
             playerTurn = 1.7;
         
-            }
-            else{
-                playerTurn = 2;
-                console.log("on to the next person! ");
-            }
-    }
-
-    if (playerTurn === 1.7){
-       if (htmlEl.style.background === 'rgb(255, 255, 0)'){
-        let desiredSquare = divList[iD]; 
-        let idOfSquare = parseInt(desiredSquare.id); //gives the id number of the square we want to move to 
-        desiredPiece.movePiece(idOfSquare);  
-        if (desiredPiece.showDoubleJumpPosition() === true){
-            playerTurn = 1.6;
         }
         else{
             playerTurn = 2;
+            console.log("on to the next person! ");
+        }
+    }
+
+    if (playerTurn === 1.7){
+        console.log("in playerTurn = 1.7...")
+        if (htmlEl.style.background !== 'rgb(255, 255, 0)'){
+                return;
+        }
+       if (htmlEl.style.background === 'rgb(255, 255, 0)'){
+        console.log("in playerTurn = 1.7, got click on yellow...")
+
+        let desiredSquare = divList[iD]; 
+        console.log("peeetterrrrrr");
+        let idOfSquare = parseInt(desiredSquare.id); //gives the id number of the square we want to move to 
+        desiredPiece.movePiece(idOfSquare);  
+        desiredPiece.showDoubleJumpPosition();
+        if (desiredPiece.getHasMoves() === true){
+            console.log("setting player turn to 1.6, before 1.7...");
+            playerTurn = 1.6;
+        }
+        else{
+            console.log("setting player turn to 2, before 1.7...");
+
+            playerTurn = 2;
         }
        }
-       else if (htmlEl.style.background !== 'rgb(255, 255, 0)' && desiredPiece){
+
+       else if (htmlEl.style.background !== 'rgb(255, 255, 0)' && desiredPiece.getHasMoves() === true){
         console.log("If you would like to double jump please choose a yellow square");
+       }
+       else{
+        playerTurn = 2;
        }
     }
         // else{
