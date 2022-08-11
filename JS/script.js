@@ -660,6 +660,7 @@ class Piece {
 let divList = document.querySelectorAll(".square");
 let existingCheckers = document.querySelectorAll(".circle");
 let resetButton = document.querySelector("#reset");
+let messageBoard = document.querySelector("#message-board");
 let gameArray = [];
 let playerTurn = 1;
 let player1NumCaptured = 0;
@@ -705,7 +706,7 @@ boarder.addEventListener('click', function(cursor){
                 playerTurn = 1.5;
             } 
             else {
-                console.log("Pleae select a piece which has possible moves available")
+                messageBoard.innerHTML = "Pleae select a piece which has possible moves available (possible moves will appear yellow)";
             }
          }
          else{

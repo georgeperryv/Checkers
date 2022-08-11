@@ -1,14 +1,59 @@
+body{
+    background-color:rgb(195, 247, 253);
+}
+
+
+.message-container-flex{
+    display: flex;
+    justify-content: center;
+    
+}
+
+.top-messages-grid{
+    display: grid;
+    justify-items: center;
+}
+
+#spacing{
+    height: 40px;
+}
+
+
+#title{
+    justify-items: center;
+}
+
+#message-board{
+    justify-items: center;
+    width: 600px;
+}
+
+span{
+    font-weight: bold;
+}
+
+#red-word{
+    color: red;
+}
 
 
 
 
 .container{
    
-    margin-top: 200px;
+    margin-top: 20px;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+    align-items: center;
 
     
+}
+
+.player-1{
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    width: 350px;
 }
 
 
@@ -35,8 +80,23 @@
     border: blue;
 } */
 
+
+.player-2{
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    width: 350px;
+}
+
+.space-between-board-button{
+    height: 30px;
+}
+
+
 .button{
-    height: 50px;
+    height: 30px;
     display: flex;
     justify-content: center;
 }
+
+

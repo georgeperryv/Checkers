@@ -9,16 +9,31 @@
     <script defer src="JS/script.js" defer></script>
 </head>
 <body>
-
-    <h3>Let's start!</h3>
-    
-    <div class="container">
-        <div class="boarder">
+    <div class="message-container-flex">
+        <div class="top-messages-grid">
+            <div id="spacing"></div>
+            <h1 id="title">Checkers</h1>
+            <p id="message-board"><span>Player 1</span> will move <span>black</span> pieces and <span id="red-word">player 2</span> will move <span id="red-word">red</span> pieces. Your turn first Player 1!</p>
         </div>
     </div>
-    <div class="button">
-        <button type="button" id="reset">Click Me!</button>
-    </div>
+        
+        <div class="container">
+            <div class="player-1">
+                <p>Player 1</p>
+                <div id="pictures-of-black-pieces">Pieces will go here</div>
+            </div>
+          
+            <div class="boarder"></div>
+            <div class="player-2">
+                <p>Player 2</p>
+                <div id="pictures-of-red-pieces">Pieces will go here</div>
+            </div>
+            
+        </div>
+        <div class="space-between-board-button"></div>
+        <div class="button">
+            <button type="button" id="reset">Reset Board</button>
+        </div>
 
  
   
