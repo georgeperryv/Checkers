@@ -75,7 +75,9 @@ class Piece {
 
     // }
     showDoubleJumpPosition(){//will show the positions available for a double jump
-       this.hasMoves=false;
+        this.hasMoves=false;
+        let countBlackPiece = 0;
+        let countRedPiece = 0;
         if (this.kingStatus === false){
       
             if (this.color === 'black'){
@@ -98,7 +100,7 @@ class Piece {
                 // console.log("NINTH" + (gameArray[this.divLocation-18]));
                 // console.log("TENTH" + divList[this.divLocation-18].style.background);
 
-            if((this.divLocation-7) >= 0){
+                if((this.divLocation-7) >= 0){
 
                     if (gameArray[this.divLocation-7] !== null && gameArray[this.divLocation-7].color !== 'black' && gameArray[this.divLocation-14] === null && ((divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)') || (divList[this.divLocation-14].style.background === 'rgb(255, 255, 0)'))) { //jump over
                         console.log("setting hasMove true case 1")
@@ -106,20 +108,27 @@ class Piece {
                         console.log("this should be yellow:" + document.getElementById(this.divLocation-14).style.background);
                         console.log("im here1");
                         this.hasMoves = true;
-                        return true;
+                        countBlackPiece++;
+                        // return true;
                     }
-            }
-            if((this.divLocation-9) >= 0){
+                }
+                if((this.divLocation-9) >= 0){
+
                     if (gameArray[this.divLocation-9] !== null && gameArray[this.divLocation-9].color !== 'black' && gameArray[this.divLocation-18] === null && ((divList[this.divLocation-18].style.background === 'rgb(205, 133, 63)') || (divList[this.divLocation-18].style.background === 'rgb(255, 255, 0)'))){
                         console.log("setting hasMove true case 2");
                         document.getElementById(this.divLocation-18).style.background = 'rgb(255, 255, 0)';
                         this.hasMoves = true;
-                        return true;
+                        countBlackPiece++;
+                        // return true;
                     }
                 }
-                console.log("setting hasMove true case 3")
-                this.hasMoves=false;
-                return false;
+                if (countBlackPiece > 0){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            
             }
 
             
@@ -129,29 +138,31 @@ class Piece {
                     if (gameArray[this.divLocation+7] !== null && gameArray[this.divLocation+7].color !== 'red' && gameArray[this.divLocation+14] === null && ((divList[this.divLocation+14].style.background === 'rgb(205, 133, 63)') || (divList[this.divLocation+14].style.background === 'rgb(255, 255, 0)'))){
                         document.getElementById(this.divLocation+14).style.background = 'rgb(255, 255, 0)';
                         this.hasMoves = true;
-                        return true;
+                        countRedPiece++;
+                        // return true;
                     }
                 }
                 if((this.divLocation+9) < 64){
                     if (gameArray[this.divLocation+9] !== null && gameArray[this.divLocation+9].color !== 'red' && gameArray[this.divLocation+18] === null && ((divList[this.divLocation+18].style.background === 'rgb(205, 133, 63)') || (divList[this.divLocation+18].style.background === 'rgb(255, 255, 0)'))){
                         document.getElementById(this.divLocation+18).style.background = 'rgb(255, 255, 0)';
                         this.hasMoves = true;
-                        return true;
+                        countRedPiece++;
+                        // return true;
                     }
                 }
-                console.log("setting hasMove false case 3 red")
-                this.hasMoves=false;
-                return false;
-            }
-        
-            else{
-                this.hasMoves = false;
-                return false;
+                if (countRedPiece > 0){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+         
             }
         }
         else{
             console.log("now a KING! inside showDoubleJumpPosition");
-        }   
+        }  
+        
     }
 
 
@@ -271,7 +282,7 @@ class Piece {
         if (this.kingStatus ===true){
             // this.hasMoves = true;
             console.log("KINGGG STATUSSSSSS inside show Possible Moves");
-            // return true;
+            return true;
 
 
 
