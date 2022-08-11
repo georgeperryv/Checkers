@@ -326,11 +326,12 @@ boarder.addEventListener('click', function(cursor){
         }
     }
     if (playerTurn === 1.6){
-        desiredPiece = gameArray[iD];
+
         console.log("im making it here 1");
-        console.log(divList);
-        console.log(desiredPiece);
-        console.log(desiredPiece.showDoubleJumpPosition());
+        console.log(gameArray);
+        let George = gameArray[desiredPiece.divLocation];
+        console.log(George);
+        console.log(George.showDoubleJumpPosition());
         if (desiredPiece.getHasMoves() === true){
             
             playerTurn = 1.7;
