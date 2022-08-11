@@ -201,7 +201,7 @@ class Piece {
                         // return true;
                     }
                 }
-                console.log(countBlackPiece);
+                console.log(countBlackPiece, "black piece count");
                 if (countBlackPiece > 0){
                     return true;
                 }
@@ -220,14 +220,16 @@ class Piece {
                     document.getElementById(this.divLocation+7).style.background = 'rgb(255, 255, 0)';
                     console.log("fifth");
                     this.hasMoves = true;
-                    return true;
+                    countRedPiece++;
+
                     }
                     //in case it starts putting yellows on light colored squares add an and with this "&& divList[this.divLocation-14].style.background === 'rgb(205, 133, 63)'""
                     if (gameArray[this.divLocation+7] !== null && gameArray[this.divLocation+7].color !== 'red' && gameArray[this.divLocation+14] === null && divList[this.divLocation+14].style.background === 'rgb(205, 133, 63)'){
                         document.getElementById(this.divLocation+14).style.background = 'rgb(255, 255, 0)';
                         console.log("sixth");
                         this.hasMoves = true;
-                        return true;
+                        countRedPiece++;
+                       
                     }
                 }
 
@@ -237,29 +239,53 @@ class Piece {
                         document.getElementById(this.divLocation+9).style.background = 'rgb(255, 255, 0)';
                         console.log("seventh");
                         this.hasMoves = true;
-                        return true;
+                        countRedPiece++;
+                        
                     }
                     if (gameArray[this.divLocation+9] !== null && gameArray[this.divLocation+9].color !== 'red' && gameArray[this.divLocation+18] === null && divList[this.divLocation+18].style.background === 'rgb(205, 133, 63)'){
                         document.getElementById(this.divLocation+18).style.background = 'rgb(255, 255, 0)';
                         console.log("eighth" + gameArray[this.divlocation+9]);
                         console.log("eighth");
                         this.hasMoves = true;
-                        return true;
+                        countRedPiece++;
+                        
                     }
                 }
-                this.hasMoves=false;
-                return false;
+                console.log(countRedPiece, "red piece count");
+                if (countRedPiece > 0){
+                    return true;
+                }
+                else{
+                    this.hasMoves=false;
+                    return false;
+                }
+        
             }
 
             else{
+                console.log("I should never be getting here");
                 this.hasMoves = false;
                 return false;
             }
         }
         if (this.kingStatus ===true){
-            this.hasMoves = true;
+            // this.hasMoves = true;
             console.log("KINGGG STATUSSSSSS inside show Possible Moves");
-            return true;
+            // return true;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }    
            
      }
