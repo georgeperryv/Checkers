@@ -73,10 +73,12 @@ Below: Win screen - A screenshot showing player 1's victory!
 
 ## Other sources:
 
-- [Psuedocode Google Sheets Link]()
+- [Psuedocode Google Sheets Link](https://docs.google.com/document/d/1RDk8BuhwzpKIhrljkslvvc0w8ZBkMTSiJ_EmIBOmAGc/edit?usp=sharing)
 
 - [Wireframe: Game Layout](https://whimsical.com/checkers-WN1B3684nFaXZdqmvkaybh)
 
-- [Checker Instructions](https://www.wikihow.com/Play-Checkers)
+- [Checkers Instructions](https://www.wikihow.com/Play-Checkers)
+
+- Sources: Occasionally referenced Stack Overflow, MDN, W3 School, and https://css-tricks.com/snippets/css/complete-guide-grid/
 
 - Image credit: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1pw0j1jDLorNIxhmhT1m3BqOyitKSKbQuGp1-oKI&s
