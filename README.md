@@ -25,7 +25,7 @@ A two-player checkers game developed for a General Assembly project
 
 ## Getting Started:
 
-- [Link to game](https://george-checker-game.netlify.app/)
+- [Link to game](https://george-perryv-checkers.netlify.app/)
 
 Instructions:
 

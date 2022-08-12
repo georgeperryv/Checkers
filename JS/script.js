@@ -1104,11 +1104,6 @@ function changeStarPosition (numPlayerTurn) {
   }
 }
 
-function getElementFromClick (cursor) {
-  htmlEl = cursor.target
-  return htmlEl
-}
-
 function init () {
   gameArray = []
   playerTurn = 1
