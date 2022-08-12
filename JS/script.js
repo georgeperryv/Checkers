@@ -1162,6 +1162,8 @@ function init () {
 
   playerTurn = 1
   messageBoard.innerHTML = ''
+  messageBoard.style.fontSize = '16px'
+  messageBoard.style.color = 'black'
   messageBoard.innerHTML =
     "<p><span>Player 1</span> will move <span>black</span> pieces and <span class='red-word'>player 2</span> will move <span class='red-word'>red</span> pieces. Your turn first <span>Player 1!</span></p>"
 }
