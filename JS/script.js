@@ -1,3 +1,6 @@
+window.onload = function() {
+    init();
+}
 
 ///////////////////////////////////////////////////////////////////
 //Board set-up 
@@ -677,7 +680,7 @@ let player1NumCaptured = 0;
 let player2NumCaptured = 0;
 let doubleJumpCount = 0;
 let gameStatus = null; //no winner
-let yellowSquares = 0;
+let starPosition = 1;
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -971,6 +974,18 @@ function addCapturedPiece(playerStash){
     }
 }
 
+function resetCapturedPieces(){
+    let allCapturedBlackPieces = document.querySelectorAll("#black-captured-piece");
+    let allCapturedRedPieces = document.querySelectorAll("#red-captured-piece");
+    allCapturedBlackPieces.forEach(element => {
+        element.remove();
+    });
+    allCapturedRedPieces.forEach(element => {
+        element.remove();
+    });
+
+}
+
 function changeStarPosition(numPlayerTurn){
     let star = document.createElement("img");
     star.setAttribute("src", "images/star-with-no-background-11549726739dvobjtcde5-removebg-preview.png");
@@ -978,10 +993,12 @@ function changeStarPosition(numPlayerTurn){
     if(numPlayerTurn === 1){
         divOfStarPlayer2.innerHTML = "";
         divOfStarPlayer1.appendChild(star);
+        starPosition = 1;
     }
     else if(numPlayerTurn === 2){
         divOfStarPlayer1.innerHTML = "";
         divOfStarPlayer2.appendChild(star);
+        starPosition = 2;
     }
 }
 
@@ -995,10 +1012,37 @@ function getElementFromClick(cursor){
 
 
 function init(){
+
     gameArray = [];
+    playerTurn = 1;
+    player1NumCaptured = 0;
+    player2NumCaptured = 0;
+    doubleJumpCount = 0;
+    gameStatus = null; //no winner
+    existingCheckers = document.querySelectorAll(".circle");
+    divList = document.querySelectorAll(".square");
+
+    if (starPosition === 2){
+        changeStarPosition(1);
+    }
+    resetCapturedPieces();
+
     existingCheckers.forEach(element => {
          element.remove();
      });
+
+     console.log(divList[39].style.background);
+
+
+    divList.forEach(element => {
+        if (element.style.background === "rgb(255, 255, 0)"){
+             console.log("there is at least one yellow");
+             element.style.background = "rgb(205, 133, 63)";
+         }
+        
+     });
+
+   
    for (let j = 0; j < 64; j++) {
         if (j < 24){
 
@@ -1029,6 +1073,8 @@ function init(){
     
         }
     }
+    
+    playerTurn = 1;
 
 
    
