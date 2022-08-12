@@ -1081,6 +1081,8 @@ function init(){
     }
     
     playerTurn = 1;
+    messageBoard.innerHTML = "";
+    messageBoard.innerHTML = "<p><span>Player 1</span> will move <span>black</span> pieces and <span class='red-word'>player 2</span> will move <span class='red-word'>red</span> pieces. Your turn first <span>Player 1!</span></p>";
 
 
    
@@ -1090,10 +1092,13 @@ function checkWinner(){
     if (player1NumCaptured === 12){
         gameStatus = 1;
         messageBoard.innerHTML = "Congratulations Player 1 - You've Won!"; 
+        messageBoard.style.fontSize = '30px';
+        messageBoard.style.color = 'green';
     }
     if (player2NumCaptured === 12){
         gameStatus = 2;
         messageBoard.innerHTML = "Congratulations Player 2 - You've Won!"; 
+        messageBoard.style.color = 'green';
     }
 }
 

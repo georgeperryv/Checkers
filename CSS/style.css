@@ -32,6 +32,8 @@ body{
 
 #title{
     justify-items: center;
+    text-decoration: underline;
+
 }
 
 #message-board{
@@ -73,6 +75,16 @@ span{
 .star-container{
     height: 50px;
     width: 50px;
+}
+
+
+#captured-piece-title-1{
+    text-decoration: underline;
+}
+
+#captured-piece-title-2{
+    text-decoration: underline;
+    color: red;
 }
 
 .star{
