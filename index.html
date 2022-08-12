@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="CSS/style.css" />
+    <script defer src="JS/script.js" defer></script>
+  </head>
+  <body>
+    <div class="message-container-flex">
+      <div class="top-messages-grid">
+        <h1 id="title">Checkers</h1>
+        <p id="message-board">
+          <span>Player 1</span> will move <span>black</span> pieces and
+          <span class="red-word">player 2</span> will move
+          <span class="red-word">red</span> pieces. Your turn first
+          <span>Player 1!</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="player-1">
+        <div class="star-container" id="star-player-1">
+          <img
+            src="images/star-with-no-background-11549726739dvobjtcde5-removebg-preview.png"
+            alt="Star"
+            class="star"
+          />
+        </div>
+        <p id="captured-piece-title-1">
+          <span>Player 1's Captured Pieces</span>
+        </p>
+        <div class="piece-pictures" id="pictures-of-black-pieces"></div>
+      </div>
+
+      <div class="boarder"></div>
+      <div class="player-2">
+        <div class="star-container" id="star-player-2"></div>
+        <p id="captured-piece-title-2">
+          <span class="red-word">Player 2's Captured Pieces</span>
+        </p>
+        <div class="piece-pictures" id="pictures-of-red-pieces"></div>
+      </div>
+    </div>
+    <div class="space-between-board-button"></div>
+    <div class="button">
+      <button type="button" id="reset">Start New Game</button>
+    </div>
+  </body>
+</html>
