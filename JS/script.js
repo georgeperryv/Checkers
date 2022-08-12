@@ -963,8 +963,8 @@ function addCapturedPiece(playerStash){
     if(playerStash === 1){
         capturedPiece.style.background = "red";
         capturedPiece.setAttribute("id", "red-captured-piece");
-        capturedPiece.style.width = "40px";
-        capturedPiece.style.height = "40px";
+        capturedPiece.style.width = "56px";
+        capturedPiece.style.height = "56px";
         capturedPiece.style.borderRadius = "50%";
         capturedPiece.style.margin = "5px";
         divOfPiecesCapturedPlayer1.appendChild(capturedPiece);
@@ -972,8 +972,8 @@ function addCapturedPiece(playerStash){
     else if(playerStash === 2){
         capturedPiece.style.background = "black";
         capturedPiece.setAttribute("id", "black-captured-piece");
-        capturedPiece.style.width = "40px";
-        capturedPiece.style.height = "40px";
+        capturedPiece.style.width = "56px";
+        capturedPiece.style.height = "56px";
         capturedPiece.style.borderRadius = "50%";
         capturedPiece.style.margin = "5px";
         divOfPiecesCapturedPlayer2.appendChild(capturedPiece);
