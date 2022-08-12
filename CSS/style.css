@@ -83,7 +83,13 @@ span{
 }
 
 .piece-pictures{
-    margin-bottom: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 100px;
+    margin-left: 30px;
+    margin-right: 30px;
+    width: 200px;
+    height: 170px;
 }
 
 

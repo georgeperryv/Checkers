@@ -547,6 +547,7 @@ class Piece {
                 gameArray[oldSpotOfPieceJumping] = null;
                 console.log(gameArray);
                 player1NumCaptured++;
+                addCapturedPiece(1);
                 console.log("player 1 captured: " + player1NumCaptured);
             }
             if(this.kingStatus === true){   
@@ -556,6 +557,7 @@ class Piece {
                     let oldSpotOfPieceJumping = this.divLocation+(difference/2);
                     gameArray[oldSpotOfPieceJumping] = null;
                     player1NumCaptured++;
+                    addCapturedPiece(1);
                     console.log("player 1 captured: " + player1NumCaptured);
                 }
                 if ((idOfSquare-this.divLocation) < 0){
@@ -564,6 +566,7 @@ class Piece {
                     let oldSpotOfPieceJumping = this.divLocation-(difference/2);
                     gameArray[oldSpotOfPieceJumping] = null;
                     player1NumCaptured++;
+                    addCapturedPiece(1);
                     console.log("player 1 captured: " + player1NumCaptured);
                 }
 
@@ -576,6 +579,7 @@ class Piece {
                 let oldSpotOfPieceJumping = this.divLocation+(difference/2);
                 gameArray[oldSpotOfPieceJumping] = null;
                 player2NumCaptured++;
+                addCapturedPiece(2);
                 console.log("player 2 captured: " + player2NumCaptured);
             }
             if(this.kingStatus === true){
@@ -585,6 +589,7 @@ class Piece {
                     let oldSpotOfPieceJumping = this.divLocation+(difference/2);
                     gameArray[oldSpotOfPieceJumping] = null;
                     player2NumCaptured++;
+                    addCapturedPiece(2);
                     console.log("player 2 captured: " + player2NumCaptured);
                 }
                 if ((idOfSquare-this.divLocation) < 0){
@@ -593,6 +598,7 @@ class Piece {
                     let oldSpotOfPieceJumping = this.divLocation-(difference/2);
                     gameArray[oldSpotOfPieceJumping] = null;
                     player2NumCaptured++;
+                    addCapturedPiece(2);
                     console.log("player 2 captured: " + player2NumCaptured);
                 }
             }
@@ -663,6 +669,8 @@ let resetButton = document.querySelector("#reset");
 let messageBoard = document.querySelector("#message-board");
 let divOfStarPlayer1 = document.querySelector("#star-player-1");
 let divOfStarPlayer2 = document.querySelector("#star-player-2");
+let divOfPiecesCapturedPlayer1 = document.querySelector("#pictures-of-black-pieces");
+let divOfPiecesCapturedPlayer2 = document.querySelector("#pictures-of-red-pieces");
 let gameArray = [];
 let playerTurn = 1;
 let player1NumCaptured = 0;
@@ -670,24 +678,6 @@ let player2NumCaptured = 0;
 let doubleJumpCount = 0;
 let gameStatus = null; //no winner
 let yellowSquares = 0;
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Function
-
-function changeStarPosition(numPlayerTurn){
-    let star = document.createElement("img");
-    star.setAttribute("src", "images/star-with-no-background-11549726739dvobjtcde5-removebg-preview.png");
-    star.setAttribute("class", "star");
-    if(numPlayerTurn === 1){
-        divOfStarPlayer2.innerHTML = "";
-        divOfStarPlayer1.appendChild(star);
-    }
-    else if(numPlayerTurn === 2){
-        divOfStarPlayer1.innerHTML = "";
-        divOfStarPlayer2.appendChild(star);
-    }
-}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -958,6 +948,42 @@ resetButton.addEventListener('click', init);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //functions
+
+function addCapturedPiece(playerStash){
+    let capturedPiece = document.createElement("div");
+    if(playerStash === 1){
+        capturedPiece.style.background = "red";
+        capturedPiece.setAttribute("id", "red-captured-piece");
+        capturedPiece.style.width = "40px";
+        capturedPiece.style.height = "40px";
+        capturedPiece.style.borderRadius = "50%";
+        capturedPiece.style.margin = "5px";
+        divOfPiecesCapturedPlayer1.appendChild(capturedPiece);
+    }
+    else if(playerStash === 2){
+        capturedPiece.style.background = "black";
+        capturedPiece.setAttribute("id", "black-captured-piece");
+        capturedPiece.style.width = "40px";
+        capturedPiece.style.height = "40px";
+        capturedPiece.style.borderRadius = "50%";
+        capturedPiece.style.margin = "5px";
+        divOfPiecesCapturedPlayer2.appendChild(capturedPiece);
+    }
+}
+
+function changeStarPosition(numPlayerTurn){
+    let star = document.createElement("img");
+    star.setAttribute("src", "images/star-with-no-background-11549726739dvobjtcde5-removebg-preview.png");
+    star.setAttribute("class", "star");
+    if(numPlayerTurn === 1){
+        divOfStarPlayer2.innerHTML = "";
+        divOfStarPlayer1.appendChild(star);
+    }
+    else if(numPlayerTurn === 2){
+        divOfStarPlayer1.innerHTML = "";
+        divOfStarPlayer2.appendChild(star);
+    }
+}
 
 function getElementFromClick(cursor){
     htmlEl  = cursor.target;
