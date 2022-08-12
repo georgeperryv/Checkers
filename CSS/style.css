@@ -1,38 +1,53 @@
+html{
+    height: 100%;
+}
+
 body{
     background-color:rgb(195, 247, 253);
+    border: 10px solid;
+    border-color: rgb(205, 133, 63);
+    margin: 0px;
+    padding: 0px;
+    height: 98%;
+    width: 99%;
+    min-width: 1100px;
 }
+
+
 
 
 .message-container-flex{
     display: flex;
     justify-content: center;
+   
     
 }
 
 .top-messages-grid{
     display: grid;
+    justify-content: center;
     justify-items: center;
+    text-align: center;
 }
-
-#spacing{
-    height: 40px;
-}
-
 
 #title{
     justify-items: center;
 }
 
 #message-board{
-    justify-items: center;
+   
     width: 600px;
+    height: 35px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    justify-self: center;
 }
 
 span{
     font-weight: bold;
 }
 
-#red-word{
+.red-word{
     color: red;
 }
 
@@ -41,10 +56,10 @@ span{
 
 .container{
    
-    margin-top: 20px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    
 
     
 }
@@ -54,6 +69,21 @@ span{
     justify-content: center;
     justify-items: center;
     width: 350px;
+    position: relative;
+}
+
+.star-container{
+    height: 50px;
+    width: 50px;
+}
+
+.star{
+    height: 50px;
+    width: 50px;
+}
+
+.piece-pictures{
+    margin-bottom: 150px;
 }
 
 

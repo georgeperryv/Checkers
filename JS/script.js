@@ -661,6 +661,8 @@ let divList = document.querySelectorAll(".square");
 let existingCheckers = document.querySelectorAll(".circle");
 let resetButton = document.querySelector("#reset");
 let messageBoard = document.querySelector("#message-board");
+let divOfStarPlayer1 = document.querySelector("#star-player-1");
+let divOfStarPlayer2 = document.querySelector("#star-player-2");
 let gameArray = [];
 let playerTurn = 1;
 let player1NumCaptured = 0;
@@ -670,6 +672,22 @@ let gameStatus = null; //no winner
 let yellowSquares = 0;
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Function
+
+function changeStarPosition(numPlayerTurn){
+    let star = document.createElement("img");
+    star.setAttribute("src", "images/star-with-no-background-11549726739dvobjtcde5-removebg-preview.png");
+    star.setAttribute("class", "star");
+    if(numPlayerTurn === 1){
+        divOfStarPlayer2.innerHTML = "";
+        divOfStarPlayer1.appendChild(star);
+    }
+    else if(numPlayerTurn === 2){
+        divOfStarPlayer1.innerHTML = "";
+        divOfStarPlayer2.appendChild(star);
+    }
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -731,6 +749,7 @@ boarder.addEventListener('click', function(cursor){
         }
         else {
             playerTurn = 2;
+            changeStarPosition(2);
             console.log("Tennis");
         }
     }
@@ -776,6 +795,7 @@ boarder.addEventListener('click', function(cursor){
         }
         else{
             playerTurn = 2;
+            changeStarPosition(2);
             console.log("on to the next person! ");
         }
     }
@@ -804,6 +824,7 @@ boarder.addEventListener('click', function(cursor){
             console.log("setting player turn to 2, before 1.7...");
 
             playerTurn = 2;
+            changeStarPosition(2);
         }
        }
 
@@ -812,6 +833,7 @@ boarder.addEventListener('click', function(cursor){
        }
        else{
         playerTurn = 2;
+        changeStarPosition(2);
        }
     }
 
@@ -847,6 +869,7 @@ boarder.addEventListener('click', function(cursor){
         }
         else{
             playerTurn = 1; 
+            changeStarPosition(1);
         }
     }
 
@@ -887,6 +910,7 @@ boarder.addEventListener('click', function(cursor){
         }
         else{
             playerTurn = 1;
+            changeStarPosition(1);
             console.log("on to the next person! ");
         }
     }
@@ -914,6 +938,7 @@ boarder.addEventListener('click', function(cursor){
             console.log("setting player turn to 1, before 2.7...");
 
             playerTurn = 1;
+            changeStarPosition(1);
         }
        }
 
@@ -922,6 +947,7 @@ boarder.addEventListener('click', function(cursor){
        }
        else{
         playerTurn = 1;
+        changeStarPosition(1);
        }
     }
 

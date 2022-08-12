@@ -11,22 +11,23 @@
 <body>
     <div class="message-container-flex">
         <div class="top-messages-grid">
-            <div id="spacing"></div>
             <h1 id="title">Checkers</h1>
-            <p id="message-board"><span>Player 1</span> will move <span>black</span> pieces and <span id="red-word">player 2</span> will move <span id="red-word">red</span> pieces. Your turn first Player 1!</p>
+            <p id="message-board"><span>Player 1</span> will move <span>black</span> pieces and <span class="red-word">player 2</span> will move <span class="red-word">red</span> pieces. Your turn first <span>Player 1!</span></p>
         </div>
     </div>
         
         <div class="container">
             <div class="player-1">
-                <p>Player 1</p>
-                <div id="pictures-of-black-pieces">Pieces will go here</div>
+                <div class="star-container" id="star-player-1"><img src="images/star-with-no-background-11549726739dvobjtcde5-removebg-preview.png" alt="Star" class="star"></div>
+                <p><span>Player 1's Captured Pieces</span></p>
+                <div class=piece-pictures id="pictures-of-black-pieces">Pieces will go here</div>
             </div>
           
             <div class="boarder"></div>
             <div class="player-2">
-                <p>Player 2</p>
-                <div id="pictures-of-red-pieces">Pieces will go here</div>
+                <div class="star-container" id="star-player-2"></div>
+                <p><span class="red-word">Player 2's Captured Pieces</span></p>
+                <div class=piece-pictures id="pictures-of-red-pieces">Pieces will go here</div>
             </div>
             
         </div>
