@@ -552,6 +552,7 @@ class Piece {
                 player1NumCaptured++;
                 addCapturedPiece(1);
                 console.log("player 1 captured: " + player1NumCaptured);
+                checkWinner();
             }
             if(this.kingStatus === true){   
                 if ((idOfSquare-this.divLocation) > 0){
@@ -562,6 +563,7 @@ class Piece {
                     player1NumCaptured++;
                     addCapturedPiece(1);
                     console.log("player 1 captured: " + player1NumCaptured);
+                    checkWinner();
                 }
                 if ((idOfSquare-this.divLocation) < 0){
                     let pieceJumpedOver = divList[this.divLocation-(difference/2)];
@@ -571,6 +573,7 @@ class Piece {
                     player1NumCaptured++;
                     addCapturedPiece(1);
                     console.log("player 1 captured: " + player1NumCaptured);
+                    checkWinner();
                 }
 
             }
@@ -584,6 +587,7 @@ class Piece {
                 player2NumCaptured++;
                 addCapturedPiece(2);
                 console.log("player 2 captured: " + player2NumCaptured);
+                checkWinner();
             }
             if(this.kingStatus === true){
                 if ((idOfSquare-this.divLocation) > 0){
@@ -594,6 +598,7 @@ class Piece {
                     player2NumCaptured++;
                     addCapturedPiece(2);
                     console.log("player 2 captured: " + player2NumCaptured);
+                    checkWinner();
                 }
                 if ((idOfSquare-this.divLocation) < 0){
                     let pieceJumpedOver = divList[this.divLocation-(difference/2)];
@@ -603,6 +608,7 @@ class Piece {
                     player2NumCaptured++;
                     addCapturedPiece(2);
                     console.log("player 2 captured: " + player2NumCaptured);
+                    checkWinner();
                 }
             }
         }
@@ -1078,6 +1084,17 @@ function init(){
 
 
    
+}
+
+function checkWinner(){
+    if (player1NumCaptured === 12){
+        gameStatus = 1;
+        messageBoard.innerHTML = "Congratulations Player 1 - You've Won!"; 
+    }
+    if (player2NumCaptured === 12){
+        gameStatus = 2;
+        messageBoard.innerHTML = "Congratulations Player 2 - You've Won!"; 
+    }
 }
 
 
