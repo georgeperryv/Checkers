@@ -3,7 +3,8 @@ html {
 }
 
 body {
-  background-color: rgb(195, 247, 253);
+  background: linear-gradient(rgb(180, 244, 248), rgb(245, 225, 245));
+  /* background-color: rgb(195, 247, 253); */
   border: 10px solid;
   border-color: rgb(205, 133, 63);
   margin: 0px;
@@ -14,6 +15,7 @@ body {
 }
 
 .message-container-flex {
+  margin-top: 20px;
   display: flex;
   justify-content: center;
 }
@@ -26,11 +28,15 @@ body {
 }
 
 #title {
+  margin-bottom: 5px;
   justify-items: center;
   text-decoration: underline;
 }
 
 #message-board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 600px;
   height: 35px;
   margin-top: 10px;

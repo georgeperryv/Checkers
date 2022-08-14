@@ -1,10 +1,8 @@
 # Checkers
 
-## Description:
-
 A two-player checkers game developed for a General Assembly project
 
-## Technical Requirements
+## Project Requirements
 
 1. Render game in browser
 2. Include win/loss logic and render win/loss messages in HTML
@@ -25,43 +23,40 @@ A two-player checkers game developed for a General Assembly project
 
 ## Getting Started:
 
-- [Link to game](https://george-perryv-checkers.netlify.app/)
+[Link to game](https://george-perry-checkers.netlify.app/)
 
 Instructions:
 
 1. Determine a player 1 & player 2
-2. Player 1 selects a black piece to move diagonally towards the top of the screen (player 2 will move a red piece diagonally towards the bottom of the screen)
+2. Player 1 selects a black piece to move diagonally towards the top of the screen (player 2 will move a red piece diagonally towards the bottom of the screen on their turn)
 3. Player 1 chooses the square they wish to move the selected piece to by clicking on a yellow square (representing possible moves)
 4. If possible, player 1 must capture a red piece by skipping over that piece to the available square diagonally behind it (will appear yellow)
 5. If possible, player 1 must continue to capture pieces after the first jump, so long as there is an available square diagonally behind a red piece (will appear yellow)
 6. Once player 1 has moved a single square or captured as many pieces in a row as possible, player 2 begins their turn
 7. If any of a player's pieces make it to the opposite end of the board, those pieces become "kings" (represented by a gold ring around the piece) which can then move and capture forward and backward
-8. Once a player captures all 12 of their opponent's pieces, the game is over!
-
-## Next steps:
-
-- [Link to Github Repository](https://github.com/georgeperryv/Project-1-Checkers-)
-- Incorporate animations to slide pieces when moved or captured
-- Render king pieces (i.e., displaying a gold ring) in the captured section when a king is captured
-- When "Start New Game" button is clicked, create a pop up asking if the player is sure they want to restart
+8. Once a player either captures all 12 of their opponent's pieces or blocks their opponent from having any possible moves the game is over!
 
 ## Game Screenshots:
 
-Below: Initialize - A screenshot showing the start of a game
+Below: Initialization - A screenshot showing the start of a game
 
-![A screenshot showing the start of a game](images/GameStart.png)
+![A screenshot showing the start of a game](images/CheckersInit.png)
 
 Below: Mid-game - A screenshot showing player 2's potential moves for the piece selected
 
-![A screenshot showing player 2's potential moves for the piece selected](images/ExampleMove.png)
+![A screenshot showing player 2's potential moves for the piece selected](images/CheckersPlayer2JumpOptions.png)
 
 Below: Mid-game - A screenshot showing player 1's potential moves for the king piece selected
 
-![A screenshot showing player 1's potential moves for the king piece selected](images/KingExample.png)
+![A screenshot showing player 1's potential moves for the king piece selected](images/CheckersExampleKing.png)
 
 Below: Win screen - A screenshot showing player 1's victory!
 
-![A screenshot showing player 1's victory!](images/ExampleWin.png)
+![A screenshot showing player 1's victory through elimination of player 2's possible moves!](images/CheckersWinByBlock.png)
+
+Below: Win screen - A screenshot showing player 2's victory!
+
+![A screenshot showing player 2's victory by capturing all of player 1's pieces!](images/CheckersWinCapturingEverything.png)
 
 ## Project Hurdles
 
@@ -69,7 +64,14 @@ Below: Win screen - A screenshot showing player 1's victory!
 
 - The situation that took the most time to develop an algorithm for was the double+ jump. I wanted to create an algorithm which would allow for consecutive captures infinitely until there were no longer moves available. By adding conditions to the event listner placed on the board, I was able to continually call the showDoubleJumpPosition() method (which would show the available squares) until there were no longer moves available for that piece object.
 
-- Attention to detail was crucial throughout this project as I had to think of every possible scenario someone could move. This would all change if a piece was a king or if an object was on the first or last row of the board. Constantly testing the game to ensure I wasn't missing a possiblity was a very important part of overcoming the bugs I encountered along the way.
+- Attention to detail was crucial throughout this project as I had to think of every possible scenario. This would all change if a piece was a king or if an object was on the first or last row of the board. Constantly testing the game to ensure I wasn't missing a possiblity was a very important part of overcoming the bugs I encountered along the way. One very helpful feature I added towards the end of the project was the initTest() function, which would render the board with fewer pieces, allowing me to test win scenarios more efficiently.
+
+## Next steps:
+
+- [Link to Github Repository](https://github.com/georgeperryv/Project-1-Checkers-)
+- Incorporate animations to slide pieces when moved or captured
+- Render king pieces (i.e., displaying a gold ring) in the captured section when a king is captured
+- When "Start New Game" button is clicked, create a pop up asking if the player is sure they want to restart
 
 ## Other sources:
 

@@ -63,358 +63,360 @@ class Piece {
   }
 
   showPossibleMoves () {
-    //Method to show possible moves at Turns 1 and 2 (aka a player's first move on their turn as opposed to possible moves after already completing a jump)
-    //Changes open adjacent diagonal squares or open diagonal jump squares to yellow if conditions are met
-    this.hasMoves = false
-    let countBlackPiece = 0
-    let countRedPiece = 0
-    if (this.kingStatus === false) {
-      //If King status is false, black and red pieces can only move one way
-      if (this.color === 'black') {
-        if (this.divLocation - 7 >= 0) {
-          //Div location represents the location of this current piece. Subtracting 7 or 9 for black will provide the div location of the two diagonal adjacent options for that piece
-          if (
-            gameArray[this.divLocation - 7] === null &&
-            divList[this.divLocation - 7].style.background ===
-              'rgb(205, 133, 63)' //Darker shade of browk - aka there is no piece (as seen by the null in the game arrary) and the div is not yellow, it is the right color brow
-          ) {
-            document.getElementById(this.divLocation - 7).style.background =
-              'rgb(255, 255, 0)' //If these conditions are met, set the color of the square to yellow to represent a possible move
-            this.hasMoves = true // Change the hasMoves variable for the piece to true
-            countBlackPiece++
+    if (gameStatus === null) {
+      //Method to show possible moves at Turns 1 and 2 (aka a player's first move on their turn as opposed to possible moves after already completing a jump)
+      //Changes open adjacent diagonal squares or open diagonal jump squares to yellow if conditions are met
+      this.hasMoves = false
+      let countBlackPiece = 0
+      let countRedPiece = 0
+      if (this.kingStatus === false) {
+        //If King status is false, black and red pieces can only move one way
+        if (this.color === 'black') {
+          if (this.divLocation - 7 >= 0) {
+            //Div location represents the location of this current piece. Subtracting 7 or 9 for black will provide the div location of the two diagonal adjacent options for that piece
+            if (
+              gameArray[this.divLocation - 7] === null &&
+              divList[this.divLocation - 7].style.background ===
+                'rgb(205, 133, 63)' //Darker shade of browk - aka there is no piece (as seen by the null in the game arrary) and the div is not yellow, it is the right color brow
+            ) {
+              document.getElementById(this.divLocation - 7).style.background =
+                'rgb(255, 255, 0)' //If these conditions are met, set the color of the square to yellow to represent a possible move
+              this.hasMoves = true // Change the hasMoves variable for the piece to true
+              countBlackPiece++
+            }
+
+            //Similar logic for the following code. -14 and -18 would be the diagonal behind the adjacent diagonal
+            if (
+              gameArray[this.divLocation - 7] !== null &&
+              gameArray[this.divLocation - 7].color !== 'black' &&
+              gameArray[this.divLocation - 14] === null &&
+              (divList[this.divLocation - 14].style.background ===
+                'rgb(205, 133, 63)' ||
+                divList[this.divLocation - 14].style.background ===
+                  'rgb(255, 255, 0)')
+            ) {
+              document.getElementById(this.divLocation - 14).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countBlackPiece++
+            }
+          }
+          if (this.divLocation - 9 >= 0) {
+            if (
+              gameArray[this.divLocation - 9] === null &&
+              divList[this.divLocation - 9].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation - 9).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countBlackPiece++
+            }
+            if (
+              gameArray[this.divLocation - 9] !== null &&
+              gameArray[this.divLocation - 9].color !== 'black' &&
+              gameArray[this.divLocation - 18] === null &&
+              divList[this.divLocation - 18].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation - 18).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countBlackPiece++
+            }
+          }
+          //If any of the above statements were true, then this black piece has an initial possible move available and the function will return true
+          if (countBlackPiece > 0) {
+            return true
+          } else {
+            this.hasMoves = false
+            return false
+          }
+        }
+
+        //The same process is done for red except in the opposite direction. They will be moving forward on the div numbers
+        if (this.color === 'red') {
+          if (this.divLocation + 7 < 64) {
+            // Ensures the if statement won't check for possible moves if it is on the far border
+            if (
+              gameArray[this.divLocation + 7] === null &&
+              divList[this.divLocation + 7].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation + 7).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countRedPiece++
+            }
+            if (
+              gameArray[this.divLocation + 7] !== null &&
+              gameArray[this.divLocation + 7].color !== 'red' &&
+              gameArray[this.divLocation + 14] === null &&
+              divList[this.divLocation + 14].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation + 14).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countRedPiece++
+            }
           }
 
-          //Similar logic for the following code. -14 and -18 would be the diagonal behind the adjacent diagonal
-          if (
-            gameArray[this.divLocation - 7] !== null &&
-            gameArray[this.divLocation - 7].color !== 'black' &&
-            gameArray[this.divLocation - 14] === null &&
-            (divList[this.divLocation - 14].style.background ===
-              'rgb(205, 133, 63)' ||
-              divList[this.divLocation - 14].style.background ===
-                'rgb(255, 255, 0)')
-          ) {
-            document.getElementById(this.divLocation - 14).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countBlackPiece++
+          if (this.divLocation + 9 < 64) {
+            if (
+              gameArray[this.divLocation + 9] === null &&
+              divList[this.divLocation + 9].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation + 9).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countRedPiece++
+            }
+            if (
+              gameArray[this.divLocation + 9] !== null &&
+              gameArray[this.divLocation + 9].color !== 'red' &&
+              gameArray[this.divLocation + 18] === null &&
+              divList[this.divLocation + 18].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation + 18).style.background =
+                'rgb(255, 255, 0)'
+
+              countRedPiece++
+            }
           }
-        }
-        if (this.divLocation - 9 >= 0) {
-          if (
-            gameArray[this.divLocation - 9] === null &&
-            divList[this.divLocation - 9].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation - 9).style.background =
-              'rgb(255, 255, 0)'
+
+          if (countRedPiece > 0) {
             this.hasMoves = true
-            countBlackPiece++
+            return true
+          } else {
+            this.hasMoves = false
+            return false
           }
-          if (
-            gameArray[this.divLocation - 9] !== null &&
-            gameArray[this.divLocation - 9].color !== 'black' &&
-            gameArray[this.divLocation - 18] === null &&
-            divList[this.divLocation - 18].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation - 18).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countBlackPiece++
-          }
-        }
-        //If any of the above statements were true, then this black piece has an initial possible move available and the function will return true
-        if (countBlackPiece > 0) {
-          return true
         } else {
           this.hasMoves = false
           return false
         }
       }
+      //If a piece has kingStatus set to true, it will basically have all of the above moves, being able to move both forward and backwards. It keeps it's this.color consistent, however, since it still acts like that team's piece capturing the other color
+      if (this.kingStatus === true) {
+        if (this.color === 'black') {
+          if (this.divLocation - 7 >= 0) {
+            if (
+              gameArray[this.divLocation - 7] === null &&
+              divList[this.divLocation - 7].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation - 7).style.background =
+                'rgb(255, 255, 0)'
 
-      //The same process is done for red except in the opposite direction. They will be moving forward on the div numbers
-      if (this.color === 'red') {
-        if (this.divLocation + 7 < 64) {
-          // Ensures the if statement won't check for possible moves if it is on the far border
-          if (
-            gameArray[this.divLocation + 7] === null &&
-            divList[this.divLocation + 7].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation + 7).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countRedPiece++
-          }
-          if (
-            gameArray[this.divLocation + 7] !== null &&
-            gameArray[this.divLocation + 7].color !== 'red' &&
-            gameArray[this.divLocation + 14] === null &&
-            divList[this.divLocation + 14].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation + 14).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countRedPiece++
-          }
-        }
+              this.hasMoves = true
+              countBlackPiece++
+            }
 
-        if (this.divLocation + 9 < 64) {
-          if (
-            gameArray[this.divLocation + 9] === null &&
-            divList[this.divLocation + 9].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation + 9).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countRedPiece++
+            if (
+              gameArray[this.divLocation - 7] !== null &&
+              gameArray[this.divLocation - 7].color !== 'black' &&
+              gameArray[this.divLocation - 14] === null &&
+              (divList[this.divLocation - 14].style.background ===
+                'rgb(205, 133, 63)' ||
+                divList[this.divLocation - 14].style.background ===
+                  'rgb(255, 255, 0)')
+            ) {
+              document.getElementById(this.divLocation - 14).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countBlackPiece++
+            }
           }
-          if (
-            gameArray[this.divLocation + 9] !== null &&
-            gameArray[this.divLocation + 9].color !== 'red' &&
-            gameArray[this.divLocation + 18] === null &&
-            divList[this.divLocation + 18].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation + 18).style.background =
-              'rgb(255, 255, 0)'
+          if (this.divLocation - 9 >= 0) {
+            if (
+              gameArray[this.divLocation - 9] === null &&
+              divList[this.divLocation - 9].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation - 9).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countBlackPiece++
+            }
+            if (
+              gameArray[this.divLocation - 9] !== null &&
+              gameArray[this.divLocation - 9].color !== 'black' &&
+              gameArray[this.divLocation - 18] === null &&
+              divList[this.divLocation - 18].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation - 18).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countBlackPiece++
+            }
+          }
+          if (this.divLocation + 7 < 64) {
+            if (
+              gameArray[this.divLocation + 7] === null &&
+              divList[this.divLocation + 7].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation + 7).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countBlackPiece++
+            }
+            if (
+              gameArray[this.divLocation + 7] !== null &&
+              gameArray[this.divLocation + 7].color !== 'black' &&
+              gameArray[this.divLocation + 14] === null &&
+              divList[this.divLocation + 14].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation + 14).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countBlackPiece++
+            }
+          }
+          if (this.divLocation + 9 < 64) {
+            if (
+              gameArray[this.divLocation + 9] === null &&
+              divList[this.divLocation + 9].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation + 9).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countBlackPiece++
+            }
+            if (
+              gameArray[this.divLocation + 9] !== null &&
+              gameArray[this.divLocation + 9].color !== 'black' &&
+              gameArray[this.divLocation + 18] === null &&
+              divList[this.divLocation + 18].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation + 18).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countBlackPiece++
+            }
+          }
+          if (countBlackPiece > 0) {
+            this.hasMoves = true
+            return true
+          } else {
+            this.hasMoves = false
+            return false
+          }
+        }
+        if (this.color === 'red') {
+          if (this.divLocation - 7 >= 0) {
+            if (
+              gameArray[this.divLocation - 7] === null &&
+              divList[this.divLocation - 7].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation - 7).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countRedPiece++
+            }
 
-            countRedPiece++
+            if (
+              gameArray[this.divLocation - 7] !== null &&
+              gameArray[this.divLocation - 7].color !== 'red' &&
+              gameArray[this.divLocation - 14] === null &&
+              (divList[this.divLocation - 14].style.background ===
+                'rgb(205, 133, 63)' ||
+                divList[this.divLocation - 14].style.background ===
+                  'rgb(255, 255, 0)')
+            ) {
+              document.getElementById(this.divLocation - 14).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countRedPiece++
+            }
           }
-        }
-
-        if (countRedPiece > 0) {
-          this.hasMoves = true
-          return true
-        } else {
-          this.hasMoves = false
-          return false
-        }
-      } else {
-        this.hasMoves = false
-        return false
-      }
-    }
-    //If a piece has kingStatus set to true, it will basically have all of the above moves, being able to move both forward and backwards. It keeps it's this.color consistent, however, since it still acts like that team's piece capturing the other color
-    if (this.kingStatus === true) {
-      if (this.color === 'black') {
-        if (this.divLocation - 7 >= 0) {
-          if (
-            gameArray[this.divLocation - 7] === null &&
-            divList[this.divLocation - 7].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation - 7).style.background =
-              'rgb(255, 255, 0)'
-
+          if (this.divLocation - 9 >= 0) {
+            if (
+              gameArray[this.divLocation - 9] === null &&
+              divList[this.divLocation - 9].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation - 9).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countRedPiece++
+            }
+            if (
+              gameArray[this.divLocation - 9] !== null &&
+              gameArray[this.divLocation - 9].color !== 'red' &&
+              gameArray[this.divLocation - 18] === null &&
+              divList[this.divLocation - 18].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation - 18).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countRedPiece++
+            }
+          }
+          if (this.divLocation + 7 < 64) {
+            if (
+              gameArray[this.divLocation + 7] === null &&
+              divList[this.divLocation + 7].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation + 7).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countRedPiece++
+            }
+            if (
+              gameArray[this.divLocation + 7] !== null &&
+              gameArray[this.divLocation + 7].color !== 'red' &&
+              gameArray[this.divLocation + 14] === null &&
+              divList[this.divLocation + 14].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation + 14).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countRedPiece++
+            }
+          }
+          if (this.divLocation + 9 < 64) {
+            if (
+              gameArray[this.divLocation + 9] === null &&
+              divList[this.divLocation + 9].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation + 9).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countRedPiece++
+            }
+            if (
+              gameArray[this.divLocation + 9] !== null &&
+              gameArray[this.divLocation + 9].color !== 'red' &&
+              gameArray[this.divLocation + 18] === null &&
+              divList[this.divLocation + 18].style.background ===
+                'rgb(205, 133, 63)'
+            ) {
+              document.getElementById(this.divLocation + 18).style.background =
+                'rgb(255, 255, 0)'
+              this.hasMoves = true
+              countRedPiece++
+            }
+          }
+          if (countRedPiece > 0) {
             this.hasMoves = true
-            countBlackPiece++
+            return true
+          } else {
+            this.hasMoves = false
+            return false
           }
-
-          if (
-            gameArray[this.divLocation - 7] !== null &&
-            gameArray[this.divLocation - 7].color !== 'black' &&
-            gameArray[this.divLocation - 14] === null &&
-            (divList[this.divLocation - 14].style.background ===
-              'rgb(205, 133, 63)' ||
-              divList[this.divLocation - 14].style.background ===
-                'rgb(255, 255, 0)')
-          ) {
-            document.getElementById(this.divLocation - 14).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countBlackPiece++
-          }
-        }
-        if (this.divLocation - 9 >= 0) {
-          if (
-            gameArray[this.divLocation - 9] === null &&
-            divList[this.divLocation - 9].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation - 9).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countBlackPiece++
-          }
-          if (
-            gameArray[this.divLocation - 9] !== null &&
-            gameArray[this.divLocation - 9].color !== 'black' &&
-            gameArray[this.divLocation - 18] === null &&
-            divList[this.divLocation - 18].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation - 18).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countBlackPiece++
-          }
-        }
-        if (this.divLocation + 7 < 64) {
-          if (
-            gameArray[this.divLocation + 7] === null &&
-            divList[this.divLocation + 7].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation + 7).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countBlackPiece++
-          }
-          if (
-            gameArray[this.divLocation + 7] !== null &&
-            gameArray[this.divLocation + 7].color !== 'black' &&
-            gameArray[this.divLocation + 14] === null &&
-            divList[this.divLocation + 14].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation + 14).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countBlackPiece++
-          }
-        }
-        if (this.divLocation + 9 < 64) {
-          if (
-            gameArray[this.divLocation + 9] === null &&
-            divList[this.divLocation + 9].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation + 9).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countBlackPiece++
-          }
-          if (
-            gameArray[this.divLocation + 9] !== null &&
-            gameArray[this.divLocation + 9].color !== 'black' &&
-            gameArray[this.divLocation + 18] === null &&
-            divList[this.divLocation + 18].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation + 18).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countBlackPiece++
-          }
-        }
-        if (countBlackPiece > 0) {
-          this.hasMoves = true
-          return true
-        } else {
-          this.hasMoves = false
-          return false
-        }
-      }
-      if (this.color === 'red') {
-        if (this.divLocation - 7 >= 0) {
-          if (
-            gameArray[this.divLocation - 7] === null &&
-            divList[this.divLocation - 7].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation - 7).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countRedPiece++
-          }
-
-          if (
-            gameArray[this.divLocation - 7] !== null &&
-            gameArray[this.divLocation - 7].color !== 'red' &&
-            gameArray[this.divLocation - 14] === null &&
-            (divList[this.divLocation - 14].style.background ===
-              'rgb(205, 133, 63)' ||
-              divList[this.divLocation - 14].style.background ===
-                'rgb(255, 255, 0)')
-          ) {
-            document.getElementById(this.divLocation - 14).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countRedPiece++
-          }
-        }
-        if (this.divLocation - 9 >= 0) {
-          if (
-            gameArray[this.divLocation - 9] === null &&
-            divList[this.divLocation - 9].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation - 9).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countRedPiece++
-          }
-          if (
-            gameArray[this.divLocation - 9] !== null &&
-            gameArray[this.divLocation - 9].color !== 'red' &&
-            gameArray[this.divLocation - 18] === null &&
-            divList[this.divLocation - 18].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation - 18).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countRedPiece++
-          }
-        }
-        if (this.divLocation + 7 < 64) {
-          if (
-            gameArray[this.divLocation + 7] === null &&
-            divList[this.divLocation + 7].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation + 7).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countRedPiece++
-          }
-          if (
-            gameArray[this.divLocation + 7] !== null &&
-            gameArray[this.divLocation + 7].color !== 'red' &&
-            gameArray[this.divLocation + 14] === null &&
-            divList[this.divLocation + 14].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation + 14).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countRedPiece++
-          }
-        }
-        if (this.divLocation + 9 < 64) {
-          if (
-            gameArray[this.divLocation + 9] === null &&
-            divList[this.divLocation + 9].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation + 9).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countRedPiece++
-          }
-          if (
-            gameArray[this.divLocation + 9] !== null &&
-            gameArray[this.divLocation + 9].color !== 'red' &&
-            gameArray[this.divLocation + 18] === null &&
-            divList[this.divLocation + 18].style.background ===
-              'rgb(205, 133, 63)'
-          ) {
-            document.getElementById(this.divLocation + 18).style.background =
-              'rgb(255, 255, 0)'
-            this.hasMoves = true
-            countRedPiece++
-          }
-        }
-        if (countRedPiece > 0) {
-          this.hasMoves = true
-          return true
-        } else {
-          this.hasMoves = false
-          return false
         }
       }
     }
@@ -668,96 +670,98 @@ class Piece {
   }
 
   movePiece (idOfSquare) {
-    //Once a player clicks a yellow square, the movePiece(location of the new square) will be called
-    let difference = Math.abs(idOfSquare - this.divLocation) //This represents how many divs the piece moved since it knows both its previous divLocation and its new one - take the absolute value to compare magnitude of move
-    //The following if statements only apply to capturing a piece
-    if (difference >= 14 && this.color === 'black') {
-      if (this.kingStatus === false) {
-        let pieceJumpedOver = divList[this.divLocation - difference / 2] //Takes the piece in between where the piece currently is and where it is jumping to and removes it on the next line
-        pieceJumpedOver.firstChild.remove() //Removes piece jumped over
-        let oldSpotOfPieceJumping = this.divLocation - difference / 2 //sets the divLocation of the piece jumped over to a variable
-        gameArray[oldSpotOfPieceJumping] = null //The gameArray position that represents the divLocation of the piece jumped over will be set to null to indicate there is no longer a piece in that spot
-        player1NumCaptured++ //The total tally of pieces for player one will increase
-        addCapturedPiece(1) //The screen will add a red piece to player 1's stash on the left side of the board to represent a captured piece
-        checkWinner() //Since a piece was just taken, the game will check for a winner
-      }
-      if (this.kingStatus === true) {
-        //Same logic as above but have to account for both directions since a king can move both ways (there are -'s and +'s)
-        if (idOfSquare - this.divLocation > 0) {
-          let pieceJumpedOver = divList[this.divLocation + difference / 2]
-          pieceJumpedOver.firstChild.remove()
-          let oldSpotOfPieceJumping = this.divLocation + difference / 2
-          gameArray[oldSpotOfPieceJumping] = null
-          player1NumCaptured++
-          addCapturedPiece(1)
-
-          checkWinner()
+    if (gameStatus === null) {
+      //Once a player clicks a yellow square, the movePiece(location of the new square) will be called
+      let difference = Math.abs(idOfSquare - this.divLocation) //This represents how many divs the piece moved since it knows both its previous divLocation and its new one - take the absolute value to compare magnitude of move
+      //The following if statements only apply to capturing a piece
+      if (difference >= 14 && this.color === 'black') {
+        if (this.kingStatus === false) {
+          let pieceJumpedOver = divList[this.divLocation - difference / 2] //Takes the piece in between where the piece currently is and where it is jumping to and removes it on the next line
+          pieceJumpedOver.firstChild.remove() //Removes piece jumped over
+          let oldSpotOfPieceJumping = this.divLocation - difference / 2 //sets the divLocation of the piece jumped over to a variable
+          gameArray[oldSpotOfPieceJumping] = null //The gameArray position that represents the divLocation of the piece jumped over will be set to null to indicate there is no longer a piece in that spot
+          player1NumCaptured++ //The total tally of pieces for player one will increase
+          addCapturedPiece(1) //The screen will add a red piece to player 1's stash on the left side of the board to represent a captured piece
+          checkWinner() //Since a piece was just taken, the game will check for a winner
         }
-        if (idOfSquare - this.divLocation < 0) {
-          let pieceJumpedOver = divList[this.divLocation - difference / 2]
-          pieceJumpedOver.firstChild.remove()
-          let oldSpotOfPieceJumping = this.divLocation - difference / 2
-          gameArray[oldSpotOfPieceJumping] = null
-          player1NumCaptured++
-          addCapturedPiece(1)
+        if (this.kingStatus === true) {
+          //Same logic as above but have to account for both directions since a king can move both ways (there are -'s and +'s)
+          if (idOfSquare - this.divLocation > 0) {
+            let pieceJumpedOver = divList[this.divLocation + difference / 2]
+            pieceJumpedOver.firstChild.remove()
+            let oldSpotOfPieceJumping = this.divLocation + difference / 2
+            gameArray[oldSpotOfPieceJumping] = null
+            player1NumCaptured++
+            addCapturedPiece(1)
 
-          checkWinner()
+            checkWinner()
+          }
+          if (idOfSquare - this.divLocation < 0) {
+            let pieceJumpedOver = divList[this.divLocation - difference / 2]
+            pieceJumpedOver.firstChild.remove()
+            let oldSpotOfPieceJumping = this.divLocation - difference / 2
+            gameArray[oldSpotOfPieceJumping] = null
+            player1NumCaptured++
+            addCapturedPiece(1)
+
+            checkWinner()
+          }
         }
       }
-    }
-    if (difference >= 14 && this.color === 'red') {
-      if (this.kingStatus === false) {
-        let pieceJumpedOver = divList[this.divLocation + difference / 2]
-        pieceJumpedOver.firstChild.remove()
-        let oldSpotOfPieceJumping = this.divLocation + difference / 2
-        gameArray[oldSpotOfPieceJumping] = null
-        player2NumCaptured++
-        addCapturedPiece(2)
-
-        checkWinner()
-      }
-      if (this.kingStatus === true) {
-        if (idOfSquare - this.divLocation > 0) {
+      if (difference >= 14 && this.color === 'red') {
+        if (this.kingStatus === false) {
           let pieceJumpedOver = divList[this.divLocation + difference / 2]
           pieceJumpedOver.firstChild.remove()
           let oldSpotOfPieceJumping = this.divLocation + difference / 2
           gameArray[oldSpotOfPieceJumping] = null
           player2NumCaptured++
           addCapturedPiece(2)
+
           checkWinner()
         }
-        if (idOfSquare - this.divLocation < 0) {
-          let pieceJumpedOver = divList[this.divLocation - difference / 2]
-          pieceJumpedOver.firstChild.remove()
-          let oldSpotOfPieceJumping = this.divLocation - difference / 2
-          gameArray[oldSpotOfPieceJumping] = null
-          player2NumCaptured++
-          addCapturedPiece(2)
-          checkWinner()
+        if (this.kingStatus === true) {
+          if (idOfSquare - this.divLocation > 0) {
+            let pieceJumpedOver = divList[this.divLocation + difference / 2]
+            pieceJumpedOver.firstChild.remove()
+            let oldSpotOfPieceJumping = this.divLocation + difference / 2
+            gameArray[oldSpotOfPieceJumping] = null
+            player2NumCaptured++
+            addCapturedPiece(2)
+            checkWinner()
+          }
+          if (idOfSquare - this.divLocation < 0) {
+            let pieceJumpedOver = divList[this.divLocation - difference / 2]
+            pieceJumpedOver.firstChild.remove()
+            let oldSpotOfPieceJumping = this.divLocation - difference / 2
+            gameArray[oldSpotOfPieceJumping] = null
+            player2NumCaptured++
+            addCapturedPiece(2)
+            checkWinner()
+          }
         }
       }
-    }
-    //The following code will run for all scenarios of a move (whether moving one square or jumping)
-    gameArray[this.divLocation] = null //Removes the piece from the current div in the game array and replaces it with null
-    let oldCircle = divList[this.divLocation] //Finds the node in the nodeList of all squares based on the location of the current div before it is changed
-    oldCircle.firstChild.remove() //Removes the piece from the old div - thereby removing it from the board
-    this.divLocation = idOfSquare //Changes the location of the div for this object to the id of the div passed (aka where the piece is moving to)
-    gameArray[this.divLocation] = new Piece(this.color, this.divLocation) //In the new position in the game array, add a new Piece object with the same color and new div location passed in
-    gameArray[this.divLocation].setKingStatus(this.kingStatus) //Sets king status of the new piece to whatever this king status currently is
-    this.renderPiece() //Renders a piece in the new div with the new div location
-    this.removePossibleMoves() //Removes the yellow squares from the board
+      //The following code will run for all scenarios of a move (whether moving one square or jumping)
+      gameArray[this.divLocation] = null //Removes the piece from the current div in the game array and replaces it with null
+      let oldCircle = divList[this.divLocation] //Finds the node in the nodeList of all squares based on the location of the current div before it is changed
+      oldCircle.firstChild.remove() //Removes the piece from the old div - thereby removing it from the board
+      this.divLocation = idOfSquare //Changes the location of the div for this object to the id of the div passed (aka where the piece is moving to)
+      gameArray[this.divLocation] = new Piece(this.color, this.divLocation) //In the new position in the game array, add a new Piece object with the same color and new div location passed in
+      gameArray[this.divLocation].setKingStatus(this.kingStatus) //Sets king status of the new piece to whatever this king status currently is
+      this.renderPiece() //Renders a piece in the new div with the new div location
+      this.removePossibleMoves() //Removes the yellow squares from the board
 
-    if (this.color === 'black' && this.divLocation <= 7) {
-      //If a black piece has made it to the other side (divs 0-7), change its king status to true
-      this.kingStatus = true
-      gameArray[this.divLocation].setKingStatus(true) //updated the status of the object in the game array
+      if (this.color === 'black' && this.divLocation <= 7) {
+        //If a black piece has made it to the other side (divs 0-7), change its king status to true
+        this.kingStatus = true
+        gameArray[this.divLocation].setKingStatus(true) //updated the status of the object in the game array
+      }
+      if (this.color === 'red' && this.divLocation >= 56) {
+        this.kingStatus = true
+        gameArray[this.divLocation].setKingStatus(true)
+      }
+      checkWinner()
+      return difference //returns the number of spots a piece moved
     }
-    if (this.color === 'red' && this.divLocation >= 56) {
-      this.kingStatus = true
-      gameArray[this.divLocation].setKingStatus(true)
-    }
-
-    return difference //returns the number of spots a piece moved
   }
 
   renderPiece () {
@@ -830,9 +834,10 @@ boarder.addEventListener('click', function (cursor) {
     }
     if (playerTurn === 1 && gameStatus === null && divClass === 'circle') {
       if (htmlEl.style.background === 'black') {
-        desiredPiece = gameArray[iD]
+        desiredPiece = gameArray[iD] //the index of the game array will match the id of the element clicked on
         if (desiredPiece.showPossibleMoves() === true) {
           desiredPiece.showPossibleMoves()
+          messageBoard.innerHTML = ''
           playerTurn = 1.1
         } else {
           messageBoard.innerHTML =
@@ -853,7 +858,7 @@ boarder.addEventListener('click', function (cursor) {
       htmlEl.style.background === 'rgb(255, 255, 0)'
     ) {
       let desiredSquare = divList[iD]
-      let idOfSquare = parseInt(desiredSquare.id) //Gives the id number of the square the player has clicked on
+      let idOfSquare = parseInt(desiredSquare.id) //Gives the id number of the square the player has clicked on in number form
       let numberMoved = desiredPiece.movePiece(idOfSquare) //Moves the piece to that desired square
       if (numberMoved >= 14) {
         //If jumped, progress to the third stage of the first turn to see if there are double and triple jumps available
@@ -951,6 +956,7 @@ boarder.addEventListener('click', function (cursor) {
         desiredPiece = gameArray[iD]
         if (desiredPiece.showPossibleMoves() === true) {
           desiredPiece.showPossibleMoves()
+          messageBoard.innerHTML = ''
           playerTurn = 2.1
         } else {
           messageBoard.innerHTML =
@@ -1053,6 +1059,7 @@ boarder.addEventListener('click', function (cursor) {
 //functions
 
 function addCapturedPiece (playerStash) {
+  //Adds a black or red circle to the player's stash
   let capturedPiece = document.createElement('div')
   if (playerStash === 1) {
     capturedPiece.style.background = 'red'
@@ -1074,6 +1081,7 @@ function addCapturedPiece (playerStash) {
 }
 
 function resetCapturedPieces () {
+  //removes all black and red pieces from a players stash
   let allCapturedBlackPieces = document.querySelectorAll(
     '#black-captured-piece'
   )
@@ -1087,6 +1095,7 @@ function resetCapturedPieces () {
 }
 
 function changeStarPosition (numPlayerTurn) {
+  //changes the position of the star image based on which player's turn it is
   let star = document.createElement('img')
   star.setAttribute(
     'src',
@@ -1105,6 +1114,7 @@ function changeStarPosition (numPlayerTurn) {
 }
 
 function init () {
+  //initializes the board
   gameArray = []
   playerTurn = 1
   player1NumCaptured = 0
@@ -1156,7 +1166,7 @@ function init () {
   }
 
   playerTurn = 1
-  messageBoard.innerHTML = ''
+  //   messageBoard.innerHTML = ''
   messageBoard.style.fontSize = '16px'
   messageBoard.style.color = 'black'
   messageBoard.innerHTML =
@@ -1164,6 +1174,7 @@ function init () {
 }
 
 function checkWinner () {
+  //Checkers for a winner
   if (player1NumCaptured === 12) {
     gameStatus = 1
     messageBoard.innerHTML = "Congratulations Player 1 - You've Won!"
@@ -1176,4 +1187,98 @@ function checkWinner () {
     messageBoard.style.fontSize = '30px'
     messageBoard.style.color = 'green'
   }
+
+  let blackPiecesWithMovesLeft = 0
+  let redPiecesWithMovesLeft = 0
+
+  gameArray.forEach(element => {
+    if (element !== null && element.color === 'black') {
+      element.showPossibleMoves()
+      element.removePossibleMoves()
+      if (element.getHasMoves() === true) {
+        blackPiecesWithMovesLeft++
+      }
+    }
+  })
+  gameArray.forEach(element => {
+    if (element !== null && element.color === 'red') {
+      element.showPossibleMoves()
+      element.removePossibleMoves()
+      if (element.getHasMoves() === true) {
+        ;('inside get has moves 2')
+        redPiecesWithMovesLeft++
+      }
+    }
+  })
+  if (blackPiecesWithMovesLeft === 0) {
+    messageBoard.innerHTML = "Congratulations Player 2 - You've Won!"
+    messageBoard.style.fontSize = '30px'
+    messageBoard.style.color = 'green'
+    gameStatus = 2
+  }
+  if (redPiecesWithMovesLeft === 0) {
+    messageBoard.innerHTML = "Congratulations Player 1 - You've Won!"
+    messageBoard.style.fontSize = '30px'
+    messageBoard.style.color = 'green'
+    gameStatus = 1
+  }
+}
+
+function initTest () {
+  //Renders board with only eight pieces to more efficiently test win scenarios
+  gameArray = []
+  playerTurn = 1
+  player1NumCaptured = 8
+  player2NumCaptured = 8
+  doubleJumpCount = 0
+  gameStatus = null
+  existingCheckers = document.querySelectorAll('.circle')
+  divList = document.querySelectorAll('.square')
+
+  if (starPosition === 2) {
+    changeStarPosition(1)
+  }
+  resetCapturedPieces()
+
+  existingCheckers.forEach(element => {
+    element.remove()
+  })
+
+  divList.forEach(element => {
+    if (element.style.background === 'rgb(255, 255, 0)') {
+      element.style.background = 'rgb(205, 133, 63)'
+    }
+  })
+
+  for (let j = 0; j < 64; j++) {
+    if (j < 8) {
+      if (divList[j].style.background === 'rgb(255, 235, 205)') {
+        gameArray.push(null)
+      } else if (divList[j].style.background === 'rgb(205, 133, 63)') {
+        let circle = new Piece('red', j)
+        circle.renderPiece()
+        gameArray.push(circle)
+      }
+    }
+    if (j >= 8 && j <= 55) {
+      gameArray.push(null)
+    }
+
+    if (j > 55) {
+      if (divList[j].style.background === 'rgb(255, 235, 205)') {
+        gameArray.push(null)
+      } else if (divList[j].style.background === 'rgb(205, 133, 63)') {
+        let circle = new Piece('black', j)
+        circle.renderPiece()
+        gameArray.push(circle)
+      }
+    }
+  }
+
+  playerTurn = 1
+  messageBoard.innerHTML = ''
+  messageBoard.style.fontSize = '16px'
+  messageBoard.style.color = 'black'
+  messageBoard.innerHTML =
+    "<p><span>Player 1</span> will move <span>black</span> pieces and <span class='red-word'>player 2</span> will move <span class='red-word'>red</span> pieces. Your turn first <span>Player 1!</span></p>"
 }
